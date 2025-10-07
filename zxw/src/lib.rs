@@ -8,11 +8,16 @@
 
 // Declare modules
 pub mod create_error_diagram;
+pub mod zxw_rules;
+pub mod zxw_simp_rules;
 //more here
 
 // Optional prelude
 pub mod prelude {
     pub use crate::create_error_diagram::*;
+    use quizx::hash_graph::{Graph, VType};
+    use quizx::graph::GraphLike;
+    use quizx::phase::Phase;
     //more here
 }
 

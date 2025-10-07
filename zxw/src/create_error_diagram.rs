@@ -2,7 +2,10 @@ use quizx::hash_graph::{Graph, VType};
 use quizx::graph::GraphLike;
 use quizx::phase::Phase;
 
-fn create_error_diagram (elements: &[(f64, Vec<VType>)]) -> Graph{
+fn create_error_diagram (elements: &[(f64, Vec<VType>)], qubits: u8) -> Graph{
+    // Takes a list of tuples, (float probability, paulistring) and 
+    // applies that hamiltonian to a diagram of qubits empty lines
+
     // create new empty graph
     let mut g = Graph::new();
 
@@ -33,6 +36,10 @@ fn create_error_diagram (elements: &[(f64, Vec<VType>)]) -> Graph{
             // possibly tad complicated
         }
     }
+    g
+}
+fn fidelity_loop (g:Graph) -> Graph {
+    // Add the loops at left and right boundary of diagram to compute fidelity to identity
     g
 }
 
