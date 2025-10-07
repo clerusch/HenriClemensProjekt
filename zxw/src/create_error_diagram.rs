@@ -1,6 +1,7 @@
 use quizx::hash_graph::{Graph, VType};
 use quizx::graph::GraphLike;
 use quizx::phase::Phase;
+
 fn create_error_diagram (elements: &[(f64, Vec<VType>)]) -> Graph{
     // create new empty graph
     let mut g = Graph::new();
@@ -42,7 +43,6 @@ mod tests {
 
     #[test]
     fn test_create_diagram() {
-        elements = [(0.5, "X")]
-        assert_eq!(add(2, 3), 5);
+        let elements = [(0.5, "X")];
     }
 }
