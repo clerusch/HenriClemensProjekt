@@ -1,1 +1,8 @@
 zxw/target/
+*.aux
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.toc
