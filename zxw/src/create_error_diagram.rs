@@ -32,6 +32,10 @@ fn create_error_diagram (elements: &[(f64, &'static str)]) -> Graph{
     // At this point we have a skeleton of n lines, where n is the amount of qubits
     // Now next we are going to want a W spider and a paulistring gadget for each in list
     // This should give us a W spider exactly centered and above the rest of our diagram
+
+    // OK so it looks like we need a special IO edge between WInput and Woutput spiders,
+    // with an actual W spider consisting of one input connected to a bunch of outputs,
+    // so we will have to rewrite this next part a bit
     let wdata = VData {
         ty: WInput,
         qubit: 0.0,
