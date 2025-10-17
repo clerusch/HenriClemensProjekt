@@ -3,5 +3,15 @@ name = "zxw"
 version = "0.1.0"
 edition = "2024"
 
+[profile.release]
+opt-level = 3        # maximum optimization
+lto = true           # link-time optimization
+codegen-units = 1    # slightly slower build, smaller/faster binary
+panic = "abort"      # no unwinding overhead
+strip = true         # remove debug symbols
+
 [dependencies]
-quizx = "0.3.0"
+pyo3 = {version="0.26", features=["extension-module"]}
+quizx = {version="0.3.0"}
+numpy = {git = "https://github.com/PyO3/rust-numpy.git"}
+ndarray = "0.16"
