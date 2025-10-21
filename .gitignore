@@ -6,3 +6,6 @@ zxw/target/
 *.out
 *.snm
 *.toc
+*.synctex.gz
+*.pdf
+*.fdb_latexmk
