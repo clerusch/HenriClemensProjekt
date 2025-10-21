@@ -19,6 +19,8 @@ pub mod create_error_diagram;
 pub mod zxw_rules;
 pub mod zxw_simp_rules;
 //more here
+#[cfg(test)]
+pub mod tests;
 
 // Optional prelude
 pub mod prelude {

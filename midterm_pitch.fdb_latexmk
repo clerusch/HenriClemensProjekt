@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1760363953.36388 "/home/clemens/Documents/henriClemensProjekt/midterm_pitch.tex" "midterm_pitch.pdf" "midterm_pitch" 1760363963.29589 2
-  "/home/clemens/Documents/henriClemensProjekt/midterm_pitch.tex" 1760363552.76414 19510 07248a1524486d4d8400bb16448ceeb4 ""
+["pdflatex"] 1760715727.21869 "/home/clemens/Documents/henriClemensProjekt/midterm_pitch.tex" "midterm_pitch.pdf" "midterm_pitch" 1760715732.83531 0
+  "/home/clemens/Documents/henriClemensProjekt/midterm_pitch.tex" 1760715721.40418 19562 24ba2b1458605fa28381460146a7dd55 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1755987285 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1755987285 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1755987285 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -270,11 +270,11 @@
   "img/xxStab.png" 1750842587 20481 8e7882434c30a4b241cf7e2042a9fdf9 ""
   "img/xxStabChoi.png" 1750841510 33829 e35b264a14de9079557c3667d6a1580c ""
   "img/xxx_detwebs.png" 1750772836 160552 100806c64aea43f4634f4e4d19350078 ""
-  "midterm_pitch.aux" 1760363963.11262 11798 df60dd39c12fd9077dea3e2f16764182 "pdflatex"
-  "midterm_pitch.nav" 1760363963.11374 6518 e5b21f214b3be968ae4499fa654b3164 "pdflatex"
-  "midterm_pitch.out" 1760363963.11374 1207 6e033eaa3488f4f6cf72b05e94026426 "pdflatex"
-  "midterm_pitch.tex" 1760363552.76414 19510 07248a1524486d4d8400bb16448ceeb4 ""
-  "midterm_pitch.toc" 1760363963.11474 620 1fc208d6401c5e76dafc0052b99cb919 "pdflatex"
+  "midterm_pitch.aux" 1760715732.75475 11771 cb330e19bfe8e1cf9c93c0ea602a3178 "pdflatex"
+  "midterm_pitch.nav" 1760715732.756 6490 3dc2a4d6bca89226dca1b6c2ae166dbd "pdflatex"
+  "midterm_pitch.out" 1760715732.75511 1207 37cffc2231441cb32f161f893dac69af "pdflatex"
+  "midterm_pitch.tex" 1760715721.40418 19562 24ba2b1458605fa28381460146a7dd55 ""
+  "midterm_pitch.toc" 1760715732.756 621 a2a8f892d0e355df7e1bc81afd916bf7 "pdflatex"
   (generated)
   "midterm_pitch.aux"
   "midterm_pitch.log"
