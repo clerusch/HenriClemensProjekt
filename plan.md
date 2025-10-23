@@ -13,6 +13,7 @@ QUIZX contributions:
     1.2) Patterns finden
 2) Scalable notation & simplification für quizx contributen
 3) Klasssisches Feedback bei QEC Diagrammen (mit Bastard-Spinnen) für quizx 
+4) gflow and flow for circuit extraction
 
 Goal:
 Compiler for quantum processes
@@ -20,4 +21,4 @@ Compiler for quantum processes
 Applications:
 1) Compile classicaly tractable circuits to numbers (analytical threshold)
 2) Reduction of quantum programs to simpler (less deep, fewer qubits) circuits 
-3) Compilation of circuit to restricted given gate set
+3) Circuit extraction to restricted given gate set
