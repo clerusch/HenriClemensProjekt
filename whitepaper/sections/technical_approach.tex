@@ -1,0 +1,23 @@
+\section{Technical Approach}
+We engineer a ZXW-native intermediate representation that embeds the checkpoints advocated in ``Mind the gaps'' directly into the compilation workflow.
+
+\subsection{ZXW Canonicalisation Layer}
+\begin{itemize}
+  \item Extend QUIZX with W-spider rewrite schemas (absorption, fusion, controlled phase propagation) whose soundness is machine-checked and logged, turning heuristic rewrites into verifiable artefacts.
+  \item Introduce scalable diagram notation that compresses repeated ZXW motifs while encoding provenance metadata for downstream simulators and code designers.
+  \item Instrument the layer with error-mitigation-aware metrics (node counts, depth, stochastic noise channels) to quantify impact and inform when active error detection should take over.
+\end{itemize}
+
+\subsection{Hybrid Feedback and Optimisation}
+\begin{itemize}
+  \item Embed classical optimisation heuristics (flow, gflow, stabiliser checks) that target code-compatible layouts and surface when transitions to QEC-ready circuits are warranted.
+  \item Maintain a certificate log that records rule applications, referenced lemmas, and hardware-specific constraints, enabling reproducibility and easier validation against classical co-simulators.
+  \item Provide hooks for numerical routines that evaluate expectation values on tractable instances, creating ``proof pockets'' that substantiate claimed gains before full-scale experiments.
+\end{itemize}
+
+\subsection{Gate-Set and Code-Aware Extraction}
+\begin{itemize}
+  \item Translate canonical diagrams into circuits respecting restricted gate alphabets and lattice layouts relevant to superconducting, ion-trap, and neutral-atom architectures.
+  \item Generate diagnostic reports that bundle depth, two-qubit counts, logical-to-physical mappings, and mitigation strategies, supporting the escalation from mitigation to detection and correction.
+  \item Align extraction routines with benchmarking suites and error-budget models so that claims of simulation advantage remain auditable.
+\end{itemize}

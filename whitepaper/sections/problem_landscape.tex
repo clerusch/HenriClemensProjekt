@@ -1,0 +1,14 @@
+\section{Problem Landscape}
+Eisert and Preskill identify four gaps that must be bridged en route from NISQ demonstrations to fault-tolerant application-scale quantum computing. Our current tooling leaves several of these gaps unaddressed:
+\begin{itemize}
+  \item \textbf{Gap (iii)---from heuristics to mature algorithms.} High-level process models, typically Pauli-sum Hamiltonians or ZX-style diagrams, rarely flow into provably correct optimisation pipelines. Manual rewrites dominate, and the lack of certificates prevents downstream verification.
+  \item \textbf{Gap (i)---from mitigation to detection and correction.} Error-mitigation strategies are often bolted on after circuit synthesis, blocking the feedback needed to inform code selection or hardware calibration.
+  \item \textbf{Gap (iv)---from exploratory simulators to credible quantum advantage.} Extraction towards hardware-specific circuits seldom preserves the provenance information required for reproducible benchmarking or credible claims of advantage.
+\end{itemize}
+
+Partners emphasise that these blockers translate into delayed experiments, costly calibration cycles, and difficulty engaging with error-correcting code development. A practical yet rigorous compiler must therefore:
+\begin{enumerate}
+  \item Ingest hybrid coherent-stochastic models without fragmenting the reasoning formalism.
+  \item Produce certified ZXW rewrite traces that scale to diagrams with hundreds of nodes and interface with verification tooling.
+  \item Deliver circuit extraction pipelines that preserve traceability, expose error-mitigation hooks, and align with target gate sets and code architectures.
+\end{enumerate}

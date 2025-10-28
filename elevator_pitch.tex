@@ -1,0 +1,142 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Madrid}
+% \usecolortheme{beaver}
+
+\usepackage{tikz}
+\definecolor{beaver}{RGB}{146,111,91}
+\usetikzlibrary{arrows.meta,positioning}
+
+\setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{enumerate items}[circle]
+\setbeamersize{text margin left=1cm,text margin right=1cm}
+
+\title{Towards a Quantum Compiler}
+\subtitle{Joint PhD Project Elevator Pitch}
+\author{Henri \& Clemens}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}[t]{Vision}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.58\textwidth}
+      \begin{block}{North Star}
+        \begin{itemize}
+          \item Build a compiler that closes the gap between high-level quantum descriptions and efficient circuits.
+          \item Use ZXW calculus as the reasoning layer that keeps simplifications provably sound.
+        \end{itemize}
+      \end{block}
+      \vspace{0.25cm}
+      \begin{itemize}
+        \item Contribute tooling the community can adopt quickly without rewriting their stack.
+      \end{itemize}
+    \column{0.38\textwidth}
+      \begin{alertblock}{What Success Looks Like}
+        \begin{itemize}
+          \item QUIZX gains W-spider automation that researchers rely on daily.
+          \item Our compiler prototypes motivate new hardware experiments within months.
+        \end{itemize}
+      \end{alertblock}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Compiler Flow at a Glance}
+  \centering
+  \tikzset{
+    stage/.style={rounded corners, draw=beaver!70!black, fill=beaver!20, minimum width=3.1cm, minimum height=1.1cm, align=center},
+    note/.style={font=\small, align=center}
+  }
+  \resizebox{0.96\linewidth}{!}{%
+    \begin{tikzpicture}[node distance=2.2cm, every node/.style={font=\small}, >=Latex, thick]
+      \node[stage] (model) {High-level\\quantum model};
+      \node[stage, right=of model] (zxw) {ZXW diagrams\\\& simplification};
+      \node[stage, right=of zxw] (results) {Optimized circuits\\+ numeric summaries};
+      \node[stage, right=of results] (hardware) {Target hardware\\constraints};
+      \node[stage, below=1.1cm of zxw, minimum width=3.6cm] (feedback) {Classical feedback:\\flow, gflow, heuristics};
+
+      \draw[->] (model) -- (zxw);
+      \draw[->] (zxw) -- (results);
+      \draw[->] (results) -- (hardware);
+      \draw[->] (hardware.south) |- ++(0,-0.5) -| (feedback.east);
+      \draw[->] (feedback.north) -- (zxw.south);
+
+      \node[note, above=0.25cm of zxw] {ZXW calculus keeps\\rewrites certifiable};
+    \end{tikzpicture}%
+  }
+  \vspace{0.35cm}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+      \begin{block}{What Enters the Loop}
+        \small High-level models, Pauli-sum Hamiltonians, and hardware constraints surface together so every rewrite stays grounded in the target experiment.
+      \end{block}
+    \column{0.48\textwidth}
+      \begin{exampleblock}{What We Get Out}
+        \small Numerical benchmarks plus hardware-ready circuits, with classical feedback guiding the next simplification pass.
+      \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Impact in Three Moves}
+  \begin{enumerate}[<+->]
+    \item Compile classically tractable circuits to numerical predictions for threshold analysis.
+    \item Shrink circuit depth and qubit counts before experiments hit scarce hardware.
+    \item Extract circuits that match restricted gate sets, reducing calibration overhead.
+  \end{enumerate}
+  \vspace{0.3cm}
+  \begin{exampleblock}{Bottom Line}
+    Faster iteration loops for both theorists and experimentalists exploring quantum processes.
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[t]{Technical Focus}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+      \begin{block}{QUIZX Enhancements}
+        \begin{itemize}
+          \item Invent and implement W-spider rewrite routines.
+          \item Add scalable notation so large diagrams remain legible.
+        \end{itemize}
+      \end{block}
+    \column{0.48\textwidth}
+      \begin{exampleblock}{Research Threads}
+        \begin{itemize}
+          \item Classical feedback for QEC diagrams with mixed spider types.
+          \item Flow and gflow driven circuit extraction heuristics.
+        \end{itemize}
+      \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[t]{Immediate Experiments}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.32\textwidth}
+      \begin{block}{Week 0--2}
+        \small Create ZX diagrams from Pauli-sum Hamiltonians and benchmark baseline simplifications.
+      \end{block}
+    \column{0.32\textwidth}
+      \begin{block}{Week 3--5}
+        \small Explore rewrite rules involving Z boxes, \(\pi\) rotations, and W spiders; catalogue promising patterns.
+      \end{block}
+    \column{0.32\textwidth}
+      \begin{block}{Week 6+}
+        \small Upstream minimal yet compelling QUIZX contributions and automate regression checks.
+      \end{block}
+  \end{columns}
+  \vspace{0.3cm}
+  \begin{alertblock}{Support We Need}
+    Quick feedback on simplification heuristics and access to representative QEC diagrams.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[plain]
+  \centering
+  \vfill
+  {\Large Join us to stress-test W-spider rules, co-design benchmarks, and land the first QUIZX pull request together.}
+  \vfill
+\end{frame}
+
+\end{document}

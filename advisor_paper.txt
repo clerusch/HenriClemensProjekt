@@ -1,0 +1,1599 @@
+Mind the gaps: The fraught road to quantum advantage
+Jens Eisert1, 2, 3 and John Preskill4, 5
+1
+
+arXiv:2510.19928v1 [quant-ph] 22 Oct 2025
+
+Dahlem Center for Complex Quantum Systems, Freie Universität Berlin, 14195 Berlin, Germany
+2
+Helmholtz-Zentrum Berlin für Materialien und Energie, 14109 Berlin, Germany
+3
+Fraunhofer Heinrich Hertz Institute, 10587 Berlin, Germany
+4
+Institute for Quantum Information and Matter, California Institute of Technology, CA 91125, USA
+5
+AWS Center for Quantum Computing, Pasadena, CA 91125, USA
+Quantum computing is advancing rapidly, yet substantial gaps separate today’s noisy intermediate-scale
+quantum (NISQ) devices from tomorrow’s fault-tolerant application-scale (FASQ) machines. We identify four
+related hurdles along the road ahead: (i) from error mitigation to active error detection and correction, (ii) from
+rudimentary error correction to scalable fault tolerance, (iii) from early heuristics to mature, verifiable algorithms,
+and (iv) from exploratory simulators to credible advantage in quantum simulation. Targeting these transitions
+will accelerate progress toward broadly useful quantum computing.
+
+I.
+
+INTRODUCTION
+
+Quantum computers harness principles of quantum physics
+to solve some problems dramatically faster than conventional
+computers. The potential power of quantum computing was
+recognized in the 1980s [1–3], and interest in the topic skyrocketed in the 1990s when algorithms were discovered that,
+in principle, would allow quantum computers to break cryptosystems that are widely used to protect the privacy of digital
+communication [4].
+These developments stirred experimental physicists to pursue quantum computing hardware, but for several decades
+experiment lagged far behind theory. This is now changing.
+So-called noisy intermediate-scale quantum (NISQ) computers now exist of sufficient size and accuracy that some tasks
+performed by the quantum machine are too complex to be
+emulated by the most powerful available conventional supercomputers [5, 6]. NISQ technology is an impressive feat of
+engineering and opens exciting opportunities to explore quantum physics in previously inaccessible regimes. But quantum
+computations that are practically useful and economically viable have not yet been achieved, nor is it clear when that might
+happen.
+Quantum hardware platforms are advancing steadily, but no
+one knows when quantum computers will run applications
+that broadly benefit society.
+The promise of quantum computing has attracted enthusiastic attention from companies, investors, and governments,
+as well as scientists, fueling the progress of NISQ technology.
+But NISQ computers are not error corrected, and the relatively
+high gate error rates of today’s NISQ devices severely limit
+their computational power; therefore, few practical uses of this
+technology have emerged to date. It has long been known how
+to overcome this limitation [7, 8]. NISQ technology will be
+superseded by fault-tolerant application scale (FASQ) computers that exploit quantum error-correcting codes to run a wide
+variety of useful applications. Quantum hardware has reached
+a sufficiently advanced stage that the voyage from NISQ to
+FASQ is gathering momentum in companies and research laboratories. We can envision fault-tolerant quantum computers
+
+with logical gate error rates that are many orders of magnitude
+better than the underlying physical gate error rates of hardware platforms. But this transition, still nascent, will unfold
+gradually on a timescale that remains highly uncertain.
+The path from NISQ to FASQ is likely to be arduous, expensive, and prolonged.
+The divide between NISQ and FASQ is a particularly daunting gap that must be bridged to realize the full potential of
+quantum computing. In this perspective article, we highlight
+this and several other gaps that require the attention of the
+quantum community. Recognizing these gaps, and how to
+cross them, clarifies the challenges we face and the roadmap
+for gradual future progress.
+It is helpful, for example, to divide the quest for FASQ
+into two stages. In the first stage (see Sec. II), we will cross
+the gap from today’s error mitigation methods that enhance
+the power of NISQ computers to error-corrected devices that
+protect quantum information much longer than the inherent
+lifetime of the underlying physical qubits. The second stage
+(see Sec. III) will build on these extended quantum memory
+times to realize universal fault-tolerant quantum computers
+that can solve hard problems. The first milestone will soon be
+within reach; the second will take longer. In fact, future quantum processors with broad utility may be based on different
+hardware modalities and/or architectural principles than those
+that are now being avidly pursued.
+A proposed application of quantum computing should satisfy three criteria. First, we desire an algorithm that runs
+efficiently on a quantum machine with quantifiable and reachable resource requirements. Second, we want a persuasive
+argument, possibly based on unproven but reasonable assumptions, indicating that any conceivable classical algorithm that
+achieves the same task has a much longer runtime than the
+quantum algorithm. And third, the quantum algorithm should
+provide a useful answer to a question that someone cares about.
+This answer might fuel scientific progress, or might provide
+economic value for companies, or might broadly benefit humanity. Whoever benefits, the answer should have intrinsic
+value, whether or not it was produced by a quantum machine.
+
+2
+We seek applications that are quantumly easy, classically
+hard, and practically useful.
+The quantum community has proposed a few concrete ideas
+about where to find quantum utility, but substantial gaps in
+our knowledge must be addressed to make a compelling case
+that quantum computing will have significant practical value.
+One hope is that quantum machines will speed up the search
+for solutions to optimization problems and enhance the efficacy of machine learning (see Sec. IV). But there is large gap
+between such aspirations and what has so far been rigorously
+established.
+Another proposal is that simulations using quantum computers will unveil static and dynamical properties of many-particle
+quantum systems in a regime beyond the reach of classical machines or previous quantum experiments. This aim may already
+be realized in the NISQ or early fault-tolerant eras (see Sec. V).
+But for a while the results of such simulations will be most
+valued by scientists rather than for-profit industries. Eventually,
+quantum simulations may guide the discovery of new chemical
+compounds and exotic materials with significant societal value,
+but by some current estimates such applications have quantum
+resource requirements that might not be attainable soon. Our
+expectation is that scientific exploration enabled by near-term
+quantum computers will form the foundation for a variety of
+unforeseen applications in the longer term, just as happened in
+the case of conventional computing.
+Early applications of quantum computing will be primarily
+scientific. Broader economic impact will eventually follow.
+Quantum utility will unfold gradually, fueled by advances
+in both technology and theory. Today’s most capable NISQ
+machines can execute computations with fewer than 104 twoqubit quantum operations. By some estimates, a broadly useful
+FASQ machine will need to be able to execute about 1012
+such operations (a teraquop) or more [9, 10]. As gate error
+rates improve and physical qubit counts increase, fault-tolerant
+quantum computing will pass through the megaquop regime
+(∼ 106 operations) and the gigaquop regime (∼ 109 operations) [11, 12]. At each waypoint along the road from NISQ
+to FASQ, the quantum community will be challenged to explore the expanding application space enabled by the hardware
+progress.
+Several insightful recent articles [13–18] provide valuable
+perspective on the quest for useful applications of quantum
+technology, and Ref. [19] provides a useful overview of currently known quantum algorithms. Our article covers some of
+the same ground, with a particular emphasis on the four gaps
+along the road from from NISQ that are highlighted above.
+To guide the eye, we assign to each challenge a pictorial (and
+clearly highly subjective) “gap score,” where a larger gap indicates a more demanding task.
+We are optimistic about the quantum future, and our emphasis on the gaps faced by the quantum community is not
+intended to be discouraging. But only by adopting a cleareyed assessment of the gaps that must be surmounted can we
+
+navigate the path to practical quantum utility that benefits the
+world.
+
+II.
+
+QUANTUM ERROR MITIGATION AND BEYOND
+
+Currently the most advanced quantum computing modalities
+are trapped ions, superconducting circuits, and neutral Rydberg
+atoms in optical tweezers, each with characteristic strengths
+and weaknesses.
+In an ion trap [20–22], each qubit is encoded in a single
+electrically charged atom occupying either its ground state or a
+long-lived excited state. State preparation, readout, and singlequbit gates are achieved by addressing the qubit with light
+pulses from a stable laser. As for other modalities, the most
+challenging task is performing an entangling two-qubit gate,
+which is achieved in an ion trap by manipulating the coupled
+normal modes of vibration of the ions, where the time needed
+to execute the gate is typically tens of microseconds. In some
+implementations, entangling gates are executed by transporting
+ions from storage zones to processing zones; this enables any
+qubit in the trap to interact with any other, but induces a further
+delay due to the limited speed of ion transport. For scaling
+up to large devices, one envisions a modular architecture with
+many traps that can share quantum information via optical
+interconnects or ion shuttling.
+In a superconducting circuit [23–25], qubits are arranged in a
+two-dimensional array, usually with nearest-neighbor coupling.
+Typically each qubit is a “transmon,” in effect an artificial
+atom that (unlike an atomic qubit) needs to be carefully fabricated and frequently calibrated. Each transmon is coupled
+to a microwave resonator for readout, and single-qubit gates
+are achieved by addressing the qubits with microwave pulses.
+An entangling gate can be executed in tens of nanoseconds
+by various methods, for example via electronically controlled
+tunable couplers between neighboring qubits. To scale up, one
+envisions architectures that reduce the number of wires needed
+to control the device, and better qubit coherence times attained
+by improving materials and fabrication, or by using alternative
+qubit designs (see Sec. III).
+In one type of neutral-atom device, qubits are atoms held by
+an array of optical tweezers [26–29]. As in an ion trap, state
+preparation, readout, and single-qubit gates are implemented
+by laser pulses. An entangling gate is executed in hundreds of
+nanoseconds by driving atoms to highly excited Rydberg states
+with strong dipole interactions. A gate can be performed on
+any pair of qubits by reconfiguring the tweezers to bring that
+pair into close proximity; as is the case in some ion traps, the
+cycle time for all-to-all coupling is determined by the limited
+speed of qubit transport. Among other challenges, atoms need
+to be continually reloaded to enable continuous operation of
+
+3
+the device. An alternative approach to quantum computing
+with neutral atoms is to store fermionic atoms at the sites of an
+optical lattice. In this case, two-qubit gates can be executed via
+carefully controlled atomic collisions, and readout with singlesite resolution is performed using quantum gas microscopy
+[30].
+Quantum circuits have been executed with over 50 qubits on
+ion trap platforms [22, 31], over 100 qubits on superconducting
+platforms [32, 33] and hundreds of qubits on neutral atom platforms [27]. The hardware quality can be assessed by estimating
+gate error rates using randomized benchmarking [34–36]. In
+multi-qubit processors, two-qubit gate error rates better than
+0.5%, and approaching 0.1% in some cases, are achieved using superconducting [25, 37, 38], trapped ion [21, 22], and
+neutral-atom technology [28–30, 39]. Single-qubit gate error
+rates are at least an order of magnitude better [40, 41], and
+qubit measurement error rates around 1% or better have also
+been reported [42]. The performance in all three platforms has
+improved steadily, and continual further improvements can be
+expected.
+Google Quantum AI has extracted a usable signal in quantum random circuit sampling tasks with 103 qubits and 40
+layers of two-qubit gates using their Willow processor [43]
+(see also Refs. [6, 44]). IBM Quantum has reported successful
+execution of certain mirrored kicked Ising quantum circuits
+with up to 5000 gates [45] using their Heron processor (see
+also Ref. [32]). These experiments helpfully benchmark the
+current status of superconducting quantum platforms. Given
+today’s two-qubit gate error rates, circuits at this scale need
+to be sampled many times in succession to obtain an informative outcome, where the required number of repetitions scales
+exponentially with the circuit volume.
+This exponential cost in sampling overhead is fundamental
+and unavoidable for noisy quantum circuits that are not protected by quantum error correction [46–49]. Indeed, under
+depolarizing noise, as one applies additional layers of quantum gates without performing measurements and feedback,
+quantum states converge (in trace distance) to the maximally
+mixed quantum state [49]. When the qubit number n is asymptotically large and the circuit depth scales like log n, efficient
+classical Gibbs sampling algorithms accurately estimate output
+expectation values, thereby ruling out any quantum advantage
+[50]. For non-unital noise such as amplitude damping, the
+noise itself can helpfully remove entropy arising from errors
+[51], but nevertheless log-depth random quantum circuits can
+be efficiently simulated classically on average [48, 52].
+A variety of quantum error mitigation (QEM) schemes can
+boost the reachable circuit volume significantly [53]. In QEM
+one samples from a family of quantum circuits and then applies classical postprocessing to the outcomes. For example, in
+zero-noise extrapolation (ZNE) the noise strength in a circuit
+is varied artificially, and postprocessing extrapolates the results
+to the limit of zero noise [54]. In probabilistic error cancellation (PEC), the noise is characterized experimentally, and
+postprocessing inverts the noise process to recover an unbiased
+estimator for the circuit outcome [55, 56]. Using subspace
+expansion methods, errors are mitigated by post-processing a
+noisy quantum state within a carefully chosen low-dimensional
+
+subspace [57]. Mitigation strategies can also reduce bias arising from measurement errors [58]. QEM methods are essential
+for extracting valid results from today’s NISQ processors, but
+they become impractical for deep quantum circuits because
+the required sampling overhead scales unfavorably with circuit
+size [46, 59, 60]; in the worst case, the overhead is exponential
+in the product of the depth and width of the quantum circuit.
+Quantum error mitigation boosts substantially the circuit
+volume that can be executed accurately. However, due to
+a sampling overhead cost that scales exponentially with
+circuit volume, this method fails for very large circuits.
+Using suitable QEM schemes, circuits with 10,000 or more
+gates might soon be within reach, even without notable improvements in hardware quality [61, 62]. Circuits with, say,
+width 100 and depth 100 might, for example, can provide scientifically valuable insights into the dynamics of many-particle
+quantum systems far from equilibrium (see Sec. V).
+Thanks to the substantial boost in circuit volume attainable
+via quantum error mitigation, NISQ machines with sufficiently low gate error rates might achieve marginally useful
+quantum advantage.
+In contemplating the prospects for quantum advantage using
+NISQ devices, other factors besides circuit width and depth
+deserve attention. For example, ion traps and neutral atom
+devices have higher connectivity than today’s superconducting
+processors, expanding the potential application space. Importantly, superconducting circuits can sample more circuits
+because of their higher speed, enhancing the effectiveness of
+QEM. Strictly speaking, rigorous lower bounds on the sampling overhead of QEM scale exponentially with the volume
+of the backward lightcone of the measured observable [46],
+which can be much smaller than the total circuit volume in the
+case of low-depth geometrically local circuits. We also note
+that QEM schemes [63–68] that operate coherently on multiple
+quantum inputs have been proposed; these are not yet practical
+but may eventually prove to be valuable.
+Both quantum error correction (QEC) and QEM have a
+significant overhead cost, but the nature of that overhead is
+quite different in the two cases. To protect a quantum circuit
+from noise using quantum error correction and fault-tolerant
+protocols, many additional physical qubits and physical gates
+are needed (see Sec. III). Asymptotically, the overhead cost of
+QEC scales favorably — polylogarithmically in the volume of
+the circuit we wish to execute; even so, the number of physical
+qubits required is beyond the capacity of current hardware.
+On the other hand, QEM, which does not require any extra
+physical qubits, is feasible today, but the sampling overhead is
+exponential in the circuit volume. Therefore, while QEC will
+surely be needed to execute very deep circuits, QEM is essential for seeking quantum advantage before the fault-tolerant era.
+In fact, even as QEC matures, QEM will continue to be valued for expanding the circuit size fault-tolerant platforms can
+reach [69, 70], reducing error-correction overhead at the cost
+of increasing sampling overhead [70], and mitigating circuit
+
+4
+compilation errors [71].
+Quantum error mitigation will continue to be useful in the
+FASQ era.
+
+III. FROM PROTECTED QUANTUM MEMORY TO
+SCALABLE FAULT-TOLERANT QUANTUM COMPUTATION
+
+The discovery of efficient protocols for fault-tolerant quantum computing is a fundamental advance in our understanding
+of the physical universe [72–74]. Assuming that the currently
+accepted principles of quantum physics are correct, scientists
+and engineers of the future will be able to build extraordinarily
+complex quantum systems and control them with exquisite
+precision.
+This theoretical insight is nearly 30 years old. The first quantum error-correcting codes were discovered in 1995 [7, 75],
+and schemes for using these codes to protect quantum computations against noise were formulated the following year [8].
+The theory of fault-tolerant quantum computation establishes
+that, if the error probabilities for all physical operations are
+less than a constant value called the accuracy threshold, and
+if the errors are only weakly correlated, then error rates for
+protected logical operations can be made arbitrarily small and
+therefore arbitrarily long quantum computations can be executed reliably [76–78]. To reduce the logical error rate we
+need to increase the number of physical qubits and the number
+of physical gates per logical operation, but this overhead cost
+is sufficiently mild that we can feel confident that large-scale
+quantum computations will eventually be feasible.
+An imperfect quantum computing device can accurately
+simulate an ideal computation with L logical gates using
+O(L polylog L) physical gates, if the noise is sufficiently
+weak and not too strongly correlated.
+Quantum codes are usefully characterized by the notation
+[[n, k, d]], where n is the number of physical qubits in the code
+block, k is the number of protected logical qubits, and d is
+the code distance. The code can successfully correct up to
+(d−1)/2 errors acting on the n physical qubits. It is desirable
+for the encoding rate k/n and the relative distance d/n to be
+as large as possible, but that is not the whole story.
+To perform quantum error correction, one repeatedly executes quantum computations that extract error syndromes, and
+then a classical computer inputs the error syndrome history
+and outputs a recovery step that is likely to remove most of the
+errors without damaging the protected logical quantum information, a procedure called syndrome decoding. In a realistic
+setting, the error syndrome is extracted using quantum gates
+
+which are themselves noisy, so it is important that syndrome
+extraction be achieved without unacceptable propagation of
+error within the code block, and that syndrome decoding be a
+feasible classical computation. It is particularly challenging
+to devise protocols for performing universal quantum logical
+gates on quantum information protected by QEC. For this purpose, unitary physical gates typically do not suffice; instead,
+mid-circuit measurements are required [79]. The error propagation incurred by syndrome extraction, and the complexity
+of the logical gates and syndrome decoding algorithm, are all
+crucial features guiding the choice of suitable QEC codes.
+Recent progress in both quantum hardware and QEC theory
+has ignited a vibrant interaction between the two. This trend is
+driven partly by the realization that QEC will be essential for
+running a variety of useful applications, and partly by recognition that QEC opens a fascinating frontier of fundamental
+research. Significant experimental milestones and theoretical
+advances have occurred in the past few years.
+For decades, experimental progress on QEC lagged far
+behind theory, but this is starting to change.
+Though the onset of the QEC era may be a noteworthy technological milestone, it is still in its very early stages and the
+pace of progress is hard to predict. In particular, while the
+asymptotic overhead cost of QEC scales reasonably with the
+size of the computation we wish to perform, in practice this
+cost is quite daunting from the perspective of current technology. To illustrate the predicament, consider the surface code, a
+particularly promising approach to early quantum fault tolerance because it can tolerate relatively strong physical noise and
+syndrome extraction requires only geometrically local processing in a two-dimensional layout [80, 81]. Based on numerical
+simulations [82], the probability of error Plogical for each protected logical operations is related to the probability of error
+pphys for each physical two-qubit gate by
+
+Plogical ≈ (0.1)
+
+pphys
+pthresh
+
+(d+1)/2
+.
+
+(1)
+
+Here pthresh ≈ 10−2 is the code’s accuracy threshold, and d
+(assumed to be an odd number) is the code distance. The
+number n of physical qubits used to encode each logical qubit
+is n = d2 .
+Suppose, for example, that we are targeting a logical error
+rate Plogical = 10−11 to run a highly parallelized algorithm on
+1000 logical qubits for 108 time steps. According to Eq. (1),
+assuming pphys = 10−3 (somewhat better than in today’s multiqubit devices), we need d = 19 and hence n = 361 physical
+qubits per logical qubit to hit the target. A comparable number
+of auxiliary qubits are needed to read out error syndromes, and
+additional qubits are needed to execute universal logical gates.
+We arrive at a cost of about 1000 physical qubits for each
+logical qubit, about 106 physical qubits in total, far beyond
+the scale of today’s devices which have hundreds of physical
+qubits.
+To reach quantum circuits at this scale, we will need a lot
+more physical qubits, or much better physical gate error rates
+
+5
+(or both). Either path faces formidable challenges. Furthermore, the qubit overhead is not the whole story; in addition,
+QEC inflates the time needed to run an algorithm. This may
+happen because many rounds of (noisy) syndrome measurements are needed to diagnose errors reliably, and because the
+architecture may hinder the parallelism of the logical circuit.
+The current state of the art is exemplified by recent results
+from the Google Quantum AI team using a superconducting
+processor [23]. In a demonstration of a protected quantum
+memory hosting a single logical qubit, they performed millions of consecutive rounds of surface-code error syndrome
+measurement, each lasting about a microsecond. Significantly,
+they found that the logical error rate per measurement round
+improves by a factor Λ ≈ 2 as the code distance increases
+from 3 to 5 and again from 5 to 7, suggesting that further improvements should be achievable as the code block continues
+to increase in size. As the hardware advances, we may anticipate larger values of Λ, larger codes achieving much lower
+error rates, and eventually not only protected quantum memory
+but also logical two-qubit gates with much better fidelity than
+physical gates.
+Meanwhile, alternative families of quantum low-density
+parity-check (qLDPC) codes have been developed that have a
+much higher encoding rate (ratio of number of logical qubits k
+to number of physical qubits n) than the surface code [83, 84].
+Among these are “good” codes such that k/n and the relative
+distance d/n remain bounded away from zero as n approaches
+infinity [85–87]. Aside from these asymptotic results, relatively small codes with potential near-term relevance have been
+discovered recently. An intriguing example is a [[144, 12, 12]]
+code [88]; in contrast to the surface code with the same distance and length which encodes only a single logical qubit, this
+code protects 12 logical qubits, a significant improvement in
+encoding efficiency.
+The catch is that measuring error syndromes for these higherrate codes requires geometrically non-local physical operations.
+In superconducting circuits and other solid-state platforms,
+long-distance connectivity is hard to achieve but might be attainable via sophisticated fabrication techniques. High-rate
+codes are a better fit to atomic-qubit platforms like Rydberg arrays or ion traps, in which high connectivity can be realized by
+rearranging atomic positions. In addition, to improve the overhead cost of fault-tolerant quantum computing it is not enough
+to reduce the number of physical qubits that encode each logical qubit; we also need schemes for executing universal logical
+gates acting on the protected qubits with an acceptable cost.
+Here, too, steady theoretical progress is occurring, partly due
+to better ideas for tracking how errors propagate through faulttolerant circuits [89–91].
+Thanks in part to efficient error correction and logical gates
+enabled by qubit movement, impressive demonstrations of
+fault-tolerant circuits have been achieved recently using atomic
+platforms. These include circuits with 48 logical qubits on a
+280-qubit Rydberg tweezer array system [27], and circuits with
+12 logical qubits on a 56-qubit ion trap device [92]. However,
+so far these demonstrations are limited to just a few rounds
+of error syndrome measurement, and postselection is invoked
+to achieve low logical error rates. That is, circuit runs are
+
+discarded when errors are detected, a scheme that will not
+scale to large circuits. Another issue is that the Rydberg platforms, due to delays caused by slow atomic movement and
+slow qubit measurements, have a logical cycle time that is
+orders of magnitude longer than superconducting processors.
+To run deep circuits with all-to-all coupling enabled by atomic
+rearrangement, much faster movement is desired, as well as
+faster readout and the ability to continuously load fresh atoms
+to replace those that are lost [93].
+Fast real-time syndrome decoding [23, 94–96] is necessary
+in fault-tolerant quantum computing because we must frequently perform logical operations that are conditioned on
+prior measurements of logical blocks. If it takes too long to
+decode the measurement outcomes, that will slow down the
+logical clock speed [72]. As the size of the quantum circuit
+being executed increases, and code blocks grow accordingly
+to reach lower logical error rates, this decoding task becomes
+harder. Hence, we will need better decoding methods and
+faster classical processing as quantum computing scales.
+An error-corrected quantum machine will actually be a
+hybrid system requiring substantial classical processing
+power to decode error syndromes.
+We have focused here on superconducting circuits, ion traps,
+and Rydberg tweezer arrays because these are the quantum
+computing modalities that are now sufficiently advanced for
+pioneering explorations of quantum error correction. But with
+the fault-tolerant era just beginning to dawn, it remains far
+from clear which modality has the best prospects for reaching
+broadly useful quantum computers. It is telling that just a few
+years ago Rydberg atom platforms were not widely appreciated as a promising quantum technology, yet are now leading
+the way toward early fault-tolerant algorithms. It is vital to
+continue nurturing a variety of hardware approaches, including
+those like photonic and spin qubits that may lag behind for
+now but could leap forward in the next few years.
+We do not know yet which quantum computing modalities
+will be best suited for scaling to large systems that solve
+hard problems.
+To cross the formidable gap from hundreds of physical
+qubits now to millions of physical qubits in future devices will
+require heroic advances in systems engineering, but curiositydriven fundamental research will also help to show the way.
+Aside from investigating novel modalities that might have unforeseen advantages, we should explore qubit encodings that
+have potential to lower physical gate error rates substantially,
+thus reducing the qubit count needed to attain very low logical
+error rates.
+In the arena of superconducting circuits, many variations on
+this theme are already under investigation. Today’s most advanced superconducting quantum computing devices are based
+on transmons; these are the simplest superconducting qubits
+and their quality is steadily improving. But since a logical
+qubit with very low error rate will be a very complicated object
+due to the hefty overhead cost of quantum error correction, it
+
+6
+might pay off to make the physical qubits more complicated if
+the resulting gain in performance of the physical gates makes
+it easier to realize logical qubits [12].
+For example, a fluxionium qubit is more complicated than
+a transmon, because its large inductance is achieved with an
+array of many Josephson junctions, but the resulting large
+anharmonicity enables particularly low two-qubit error rates
+[40, 97]. Cat qubits are realized by two-photon dissipation
+applied to a microwave resonator, which requires complicated
+hardware, but this approach strongly suppresses bit-flip error
+rates (while mildly increasing phase-flip error rates), potentially reducing the overhead cost of error correction [98, 99].
+In a dual-rail encoding, a single qubit is encoded using a pair
+of resonators or transmons; the advantage is that the most
+common errors are directly detectable, simplifying the error
+correction task [100, 101]. A particularly ambitious approach
+to lowering physical gate error rates, and one of the first to
+be proposed [102], is encoding an intrinsically robust qubit
+in a topological material [103, 104]. A substantial leap forward in physical gate fidelity achieved using any of these or
+other strategies could redefine the roadmap to scalable fault
+tolerance.
+Continuing progress in quantum error correction and fault
+tolerance will soon enable quantum technology to enter the
+megaquop regime in which circuits with a million or more twoqubit gates can be executed reliably [12]. A megaquop machine
+will be able to perform some tasks that are beyond the reach of
+classical NISQ, or analog quantum devices. Experience with
+these early fault-tolerant quantum computers will guide efforts
+to scale up toward more capable systems, and inform the quest
+for useful applications.
+Early fault-tolerant “megaquop machines,” capable of reliably executing one million or more quantum operations,
+will be able to perform some tasks that are beyond the reach
+of classical, NISQ, or analog quantum devices.
+There are ample opportunities for both hardware breakthroughs and theory advances that could accelerate progress toward scalable fault tolerance. More efficient encoding schemes,
+decoding algorithms, and fault-tolerant universal gates customized for the various hardware platforms will be helpful.
+Fresh ideas about system architecture may reduce the daunting
+requirements for local control of qubits in solid-state platforms
+like superconducting circuits. Deeper conceptual insights into
+the general principles underlying fault-tolerant quantum computation may suggest entirely new paradigms that reframe the
+pursuit of more powerful quantum technologies. Fundamental
+research has brought us to the brink of the fault-tolerant era,
+and will continue to guide our path to FASQ technology with
+broad applications.
+To build and operate FASQ machines with practical applications, substantial advances in both systems engineering
+and fundamental science will be needed.
+
+IV.
+
+FROM NEAR-TERM QUANTUM HEURISTICS TO
+MATURE QUANTUM ALGORITHMS
+
+A variety of potentially useful quantum algorithms are already known that can run on FASQ machines [19, 105], and
+we hope to discover many more. Comparatively little is known
+about algorithms for machines in the intermediate regime between NISQ and FASQ. How might we bridge this gap and
+strengthen the case for near-term quantum utility?
+Arguably, quantum computing demonstrations that surpass
+classical simulation algorithms have already been achieved in
+random circuit sampling experiments involving more than 100
+qubits and over 40 layers of two-qubit gates [6, 43, 44, 106–
+109]. In this case, it follows from widely believed complexitytheoretic assumptions that the output distribution sampled by
+the quantum computation is hard to sample from by any classical procedure. Though the claimed classical hardness is an
+asymptotic result and holds for a very stringent measure of
+closeness between output distributions only, today’s superconducting processors have attained the scale and accuracy where
+classical simulation of the quantum computation is infeasible.
+Random circuit sampling is of little practical interest except
+for the purpose of benchmarking the quantum computer’s performance, but this achievement is an important milestone, and
+efforts to validate the classical hardness have stimulated sizable
+improvements in classical methods for simulating quantum circuits [110, 111].
+Quantum random circuit sampling experiments demonstrate that today’s NISQ quantum processors can perform
+some tasks that are beyond the reach of today’s classical
+supercomputers; this is a notable milestone, but not of great
+practical interest.
+Efforts to realize genuine quantum utility in the NISQ era
+have been largely focused on variational quantum algorithms
+[112, 113], with potential applications in combinatorial optimization [114] and machine learning [115]. These are hybrid
+algorithms in which a quantum and classical computer work
+together to perform an optimization task. A quantum processor
+executes a circuit with adjustable parameters, and then the
+circuit’s output state is measured. The measurement outcome
+is reported to a classical computer which returns instructions
+for slightly modifying the circuit parameters, for example, by
+estimating gradients [116]. This cycle is iterated many times
+until convergence, where the goal is to minimize a suitable cost
+function.
+Can NISQ technology running such variational quantum
+algorithms outperform the best classical computers running the
+best classical algorithms for solving the same problems? After
+years of investigation, we still do not know, but there are rea-
+
+7
+sons to be discouraged. One is the barren plateau phenomenon
+— if the parametrized quantum circuit is highly expressive,
+then the gradient of the cost function tends to be extremely
+small, making it difficult to steer the circuit in the right direction [117, 118]. Reducing expressivity can mitigate the
+barren plateau problem, but there is evidence that it also makes
+variational quantum algorithms easier to simulate classically
+[48, 119–124]. Aside from the barren plateau issue, variational
+quantum algorithms are often plagued by a plethora of local
+minima of the cost function that are concentrated far from the
+global minimum [125].
+Quantum advantage in variational quantum algorithms has
+not been firmly established, and potential obstructions have
+been identified.
+That said, the potential value of NISQ variational algorithms
+remains an open issue. A positive suggestion is that the performance might be substantially improved by strategically choosing the initial parameters of the variational search (a so-called
+“warm start”) [126–129]. For example, when seeking a lowenergy state of a local Hamiltonian, one could start with an
+approximation provided by a classical heuristic algorithm, or
+when solving a combinatorial optimization problem one could
+start with the solution to a linear relaxation of the problem that
+is efficiently solvable. Conceivably, such stratagems might
+help to evade barren plateaus and suboptimal local minima.
+Convincing arguments for quantum advantage in end-to-end
+variational algorithms have been elusive, but we might make
+progress via “proof pockets” that establish advantage for relevant subtasks. By accumulating enough such instances, a more
+comprehensive picture may emerge. For example, in the quantum approximate optimization algorithm (QAOA) [114], it is
+rigorously established that the optimal values of variational
+parameters concentrate [130, 131]; hence, finding near-optimal
+parameters for one particular problem instance can advise a
+warm start in solving other instances. In addition, single-round
+QAOA has a rigorously established advantage over classical
+algorithms for problems with suitable symmetries [132]. Notably, in some cases the expensive estimation of gradients can
+be avoided by using a dissipative procedure to optimize the
+cost function [133, 134]. Further incremental steps like these
+will continue to deepen our understanding of the power of
+variational quantum algorithms.
+The power of end-to-end variational quantum algorithms
+can be clarified by “proof pockets” that characterize subtasks of the algorithms.
+Beyond the NISQ regime, one may contemplate quantum
+advantage in optimization using FASQ machines. For NPhard combinatorial optimization problems, Grover’s algorithm
+entails a quadratic speedup in exhaustive search for a satisfying
+assignment, and can likewise quadratically speed up heuristic
+classical search algorithms [135]. However, this advantage
+kicks in only for very large instances, especially when we take
+into account the much slower clock speed of FASQ technology
+compared with conventional computing. The Grover speedup
+
+may prove to be valuable in the long term, but probably not
+until many decades from now [136].
+We do not expect quantum computers to find exact solutions to worst-case instances of NP-hard problems efficiently,
+but they might be able to find better approximate solutions
+than classical computers, or to speed up the search for good
+approximate solutions. Variational quantum algorithms running on FASQ machines might realize that kind of advantage,
+but they face similar challenges to those confronting NISQ
+computers, such as barren plateaus and suboptimal local minima. It is known that directly simulating QAOA is classically
+hard [137], but also that log-depth QAOA does not have an
+asymptotic quantum advantage in combinatorial optimization
+[138] (which does not rule out a practically useful advantage
+at modest depth). As an existence proof, one can construct
+examples of asymptotic quantum advantage in finding approximate solutions to some optimization problems such as integer
+programming [139–141]. This is done by mapping problems
+solvable via Shor’s algorithm to optimization tasks, and then
+invoking notions of computational learning theory [139] or a
+variant of the theory of probabilistically checkable proofs to
+show that finding an approximate solution is classically hard
+[140]. Oracle-based subexponential quantum advantages in
+adiabatic optimization have also been identified [142, 143].
+New paradigms for seeking quantum advantage have
+emerged recently [144]. A particularly intriguing fresh approach is decoded quantum interferometry [145, 146] (DQI),
+in which the quantum Fourier transform maps a problem that
+seems classically hard to a decoding problem that is easy to
+solve classically. In particular, DQI provides an efficient quantum algorithm for optimal polynomial intersection (OPI) which
+achieves a better approximation ratio than any currently known
+classical algorithm for a variant of polynomial interpolation.
+Recent work indicates that directly simulating DQI is classically hard [147], but also that DQI provides no quantum advantage in unstructured combinatorial optimization problems
+[148]. The potential quantum advantage achieved by DQI for
+structured problems like OPI is currently under investigation,
+as are the possible practical applications of such an advantage.
+Artificial intelligence (AI) is transforming both science and
+technology, but faces obstacles such as the time and electrical
+power needed to train machine learning models. Hence it is
+natural to consider the potential power of combining quantum
+computing with machine learning (ML) [115, 149]. Quantum
+ML is particularly well suited to address problems in quantum
+many-particle physics that are presumed to be classically hard
+(see Sec. V). But what are the prospects for quantum advantage
+in tasks to which ML is currently applied?
+Though compelling empirical evidence validates the scientific and economic value of AI as practiced today, we lack a
+rigorous understanding of what classical ML can and cannot
+do efficiently, which makes it all the more challenging to assess potential quantum advantages. The exponentially large
+Hilbert space of a many-qubit quantum system encourages
+speculation that mapping classical data to that large feature
+space can significantly enhance learning [150], but an important caveat is that the high cost of loading a large classical
+data set into the quantum device may offset the advantage of
+
+8
+quantumly processing the data [151]. Another proposal, that
+quantum advantage in ML derives from the ability to perform
+linear algebra tasks efficiently in an exponentially large space
+[152], was “dequantized” when efficient classical sampling
+algorithms were formulated to perform the same task [153].
+Furthermore, the data encountered in practical machine learning tasks tends to be noisy with little discernible structure [154],
+while known performant quantum algorithms typically solve
+highly structured problems. The barren plateau problem cited
+above also raises concerns about the cost of training quantum
+neural networks.
+For some carefully chosen learning problems, quantum advantage follows from widely accepted classical hardness assumptions. Examples of learning tasks for which quantum
+advantage has been rigorously established include generative
+modeling [155] (learning to sample accurately from a target
+distribution), density modeling [156] (learning to return probability weights for sample inputs), binary classification [150]
+(learning to sort data into two classes), and identification [157]
+(learning to assign unique labels to sample inputs). Such results
+are mildly encouraging, but these models are highly contrived
+and therefore do not yet provide much helpful guidance about
+where practically useful learning advantages should be sought.
+On a more positive note, there are indications that quantum
+algorithms can speed up the training of some classical neural
+networks for realistic classical data, for example by accelerating stochastic gradient descent [158], or by invoking quantum
+linear system solvers to train generative models [159].
+
+The potential for useful quantum advantage in end-to-end
+machine learning tasks remains largely unknown. Speedups
+have been established for some cherry-picked examples, but
+robust quantum advantages for large families of instances
+remain elusive.
+
+The quantum linear systems algorithm [160] solves inversion of a sparse and well-conditioned matrix in time scaling
+logarithmically with the size of the matrix, where both the
+input and output are quantum states. Furthermore, the runtime
+scales polylogarithmically in the precision of the solution [161].
+This algorithm, together with adaptive-order finite-difference
+methods and spectral methods, can be applied to solve linear
+partial differential equations with a quantum speedup [162].
+Such algorithms may have real-life applications in the FASQ
+regime, but various open issues still need to be addressed, such
+as encoding suitable boundary conditions, applying effective
+preconditioners, and extracting usable information from measurements of the output state. Extending these methods to
+nonlinear and stochastic differential equations would significantly expand their utility [163, 164].
+
+Various quantum algorithms are known that can achieve
+quantum advantage in the FASQ regime, but finding useful
+applications to real-life problems remains challenging.
+
+V.
+
+TOWARD CREDIBLE QUANTUM ADVANTAGE IN
+QUANTUM SIMULATION
+
+Dirac may have been the first to articulate clearly that quantum mechanics provides a theory of everything that matters in
+everyday life [165]. It is the Schrödinger equation that governs
+many electrons interacting electromagnetically with each other
+and with atomic nuclei. In principle, this equation explains
+all of chemistry and materials science, and everything built
+on those foundations. Sadly, Dirac lamented, this equation is
+“much too complicated to be soluble” for systems with more
+than a few electrons. It took over fifty years before Feynman
+[1] proposed that a machine that computes quantum properties
+of many strongly interacting particles should be a quantum
+machine rather than a conventional computer.
+Dirac’s claim that many-electron problems are too hard to
+solve (classically) is in some respects misleading. Heuristic
+classical algorithms for this problem, such as density functional
+theory [166], are often quite successful in cases of practical
+interest. Furthermore, as both algorithms and hardware continually advance, classical methods are conquering more and
+more challenging problems. Quantum computing targets the
+(now) relatively small “strongly correlated” corner of chemistry
+and materials research, where classical methods falter. Because
+strongly correlated matter is poorly understood at present, it
+is difficult to foresee clearly how quantum simulations might
+drive future progress in fundamental science.
+Meanwhile, classical artificial intelligence is driving
+progress in many scientific fields. For now, applications of
+AI to quantum matter are hampered by a dearth of training
+data in the strongly correlated regime. We may anticipate that
+simulations by future quantum machines will provide abundant
+training data, enhancing the power of classical AI to make
+useful predictions about strongly correlated matter that has not
+yet been observed in the laboratory [167, 168].
+Quantum simulations [169–173] typically address either
+static properties of matter in equilibrium or dynamical properties of matter out of equilibrium. These simulations can
+be conducted using either digital gate-based quantum computers (digital quantum simulation) or analog platforms with
+precisely tunable Hamiltonians (analog quantum simulation).
+Both types of problems, and both types of quantum platforms,
+have significant scientific value.
+A commonly studied task is finding the energy of the ground
+state of a local Hamiltonian. The fundamental degrees of freedom may be qubits, bosonic modes, or fermionic modes, and
+“local” means that the Hamiltonian is a sum of terms where
+each term couples together a number of degrees of freedom
+that is independent of the system’s total size. In some cases,
+particularly in the study of materials, the Hamiltonian is “geometrically local,” meaning that the degrees of freedom are
+
+9
+arranged in a one-, two-, or three-dimensional array and those
+that couple are in close proximity to one another. An exact solution can be found classically by diagonalizing the Hamiltonian,
+but this is feasible only for small systems. For larger systems
+a variety of heuristic classical methods are used, such as density functional theory [166], tensor networks [174], and neural
+networks [175]. These typically lack performance guarantees
+(some tensor-network methods being notable exceptions), but
+can be executed efficiently in some physically relevant cases
+and often give accurate results in practice, particularly in onedimensional systems that are not too highly entangled.
+There are efficient quantum algorithms for preparing the
+ground state of a local Hamiltonian on a quantum computer
+and then measuring observables in that state, including the total
+energy [176, 177]. However, these are guaranteed to work only
+if an input state can be prepared that has a sizeable overlap
+with ground state, and this is not always feasible. A generalpurpose approach to preparing a good approximation to the
+ground state is the adiabatic method — one simulates a timedependent Hamiltonian that interpolates between an initial noninteracting Hamiltonian whose ground state is easily prepared
+and a final target Hamiltonian whose ground state is desired.
+This method is effective if one can identify a gapped adiabatic
+path that connects the target ground state to the trivial ground
+state. However, it is likely to fail if the path crosses a firstorder phase transition where the gap vanishes and the quantum
+state must change sharply to remain close to the instantaneous
+ground state along the path. Another approach is the dissipative
+method, in which one simulates coupling the target system to
+a cold thermal bath [178, 179]. This method fails if the cooled
+system takes a long time to thermalize, for example because
+its Hamiltonian has a complex energy landscape. In the cases
+where a reasonably good approximation to the ground state
+can be prepared efficiently on a quantum computer, one might
+question whether the ground-state problem is really classically
+hard [180]. For this reason, it has been challenging to argue
+persuasively that particular Hamiltonians of physical interest
+are hard to minimize classically and easy to minimize using
+digital quantum simulators.
+It is challenging to argue convincingly that ground-state
+problems for particular Hamiltonians of physical interest
+are both classically hard and quantumly easy.
+Aside from studying static properties of equilibrium states,
+one can also use quantum platforms to study the Hamiltonian
+time evolution of systems that are far from equilibrium, including systems that are suddenly quenched [171, 181, 182] or
+subject to external driving and dissipative processes [183]. Dynamical phenomena provide a particularly promising arena for
+quantum advantage because classical algorithms for simulating
+dynamics are less developed and less effective than algorithms
+for computing static properties (although the classical methods
+have been improving rapidly recently [184–187]). The classical simulations are especially challenging for systems that
+become highly entangled and are therefore difficult to describe
+accurately in terms of classical data.
+A typical dynamical quantum simulation has three stages:
+
+First an initial quantum state is prepared in the device. Then
+the state evolves forward in time via either a digital quantum
+circuit or the programmable dynamics of an analog device.
+Finally, observables of interest are measured in the final state.
+To determine expectation values of the output observables with
+useful statistical accuracy, this three-stage procedure must be
+repeated many times [169, 170, 181].
+In condensed matter physics or high-energy physics, the relevant observables are typically few-body correlation functions
+of local operators which in principle are accessible in physical
+experiments. Hence, the final measurements may be relatively
+easy to simulate, but both the initial state preparation and the
+time evolution can be more demanding. For example, one
+might be interested in the evolution of localized excitations of
+the equilibrium state which are at least as difficult to prepare
+as the equilibrium state itself. Evolution governed by a local
+Hamiltonian can be simulated using Trotter approximations
+[188], but these require high circuit depth to attain good accuracy [189]. There are more sophisticated methods using tools
+like quantum signal processing [190] and qubitization [191]
+that have more favorable asymptotic costs, but these seem less
+attractive in the near term because many auxiliary qubits are
+needed.
+Although the circuit complexity of dynamical quantum simulation may be daunting in practice, at least in principle it scales
+reasonably with both the spacetime volume we wish to simulate
+and the accuracy we wish to attain [192]. In this formal sense,
+simulation is “quantumly easy” assuming that preparation of
+the initial state is feasible. What’s less easy to pin down is the
+classical hardness of performing the same task. Any problem
+that can be solved efficiently by a quantum computer can be
+mapped to dynamical simulation governed by a local Hamiltonian, so we are assured that (if quantum advantage exists for
+any problem) then there are carefully curated Hamiltonians
+such that dynamical simulation is classically hard [193]. But
+knowing that does not help us answer whether the simulation
+task is classically hard for some particular physically relevant
+family of Hamiltonians.
+Just as for quantum algorithms more broadly, we may anticipate an ongoing competition between quantum teams who
+run simulations on quantum hardware, and classical teams
+who try to match or surpass the results using conventional
+computers (often based on tensor-network, neural-network, or
+Pauli-path methods), a line of thought dating back to 2011
+[181]. Indeed, that competition is increasingly under way.
+For example, the results of a heroic quantum simulation of
+a two-dimensional kicked Ising model using 127 qubits on
+IBM hardware [194], initially claimed to be a demonstration
+of quantum utility, were quickly matched by classical calculations using both tensor-network methods [195] and sparse
+Pauli dynamics [196]. Results of an impressive simulation of
+rapidly quenched spin-glass dynamics using D-Wave hardware
+[197], also reported as beyond the reach of classical methods,
+have been partially reproduced using classical tensor-network
+simulations [198]. This healthy back-and-forth between quantum and classical simulation teams is helpful and stimulating
+for both sides, but making a fair comparison involves some
+subtleties. Classical simulations are often limited to small
+
+10
+system size, and quantum simulations have limited accuracy.
+Furthermore, more information can be extracted from the output of a classical simulation than from the output state of a
+quantum simulation, even when the quantum simulation is
+repeated many times.
+Although quantum simulations in the NISQ era may not
+have very high accuracy, they might still be qualitatively informative. A recent example illustrating the state of the art is a
+computation of out-of-time-order correlators (OTOCs) using
+103 qubits on a Google superconducting processor in a regime
+that is arguably hard to simulate classically [33]. To acquire
+quantitatively useful data, fault-tolerant quantum computers
+will most likely be needed, but useful quantum advantage might
+be attained in simulations of strongly-coupled lattice systems
+in two dimensions using relatively near-term digital machines
+in the megaquop to gigaquop regime. Thoughtful co-design of
+fault-tolerant architectures and simulation algorithms will help
+to ensure that useful simulations are reached sooner.
+In contrast to a circuit-based digital universal quantum computer, an analog quantum simulator is a quantum system with
+many degrees of freedom that can be tuned to resemble a model
+system we wish to study and understand. Some of the same
+experimental platforms, for example Rydberg tweezer arrays
+[28, 199, 200], other ultracold-atom platforms [171, 181], superconducting circuits [201], and trapped ions [172, 173], can
+be used for both purposes. While interesting digital quantum simulations of many-particle quantum systems are just
+starting to become possible now, analog simulations of such
+systems have been studied productively for over two decades
+[171–173].
+The fundamental elements of an analog simulator can include harmonic resonators or fermionic atoms, evading the
+overhead cost of simulating those elements using qubits. In
+a particularly powerful analog approach, ultracold fermions
+may be trapped in optical lattices with single-site addressability
+[202–206]. These systems illuminate properties of strongly correlated systems that are difficult to access in conventional solidstate experiments, and for much larger system size than can be
+reached with today’s digital quantum platforms. For example,
+phase diagrams of Hubbard-like models can be explored, and
+emergent hydrodynamic transport of spin and charge can be
+studied. Recent evidence suggests that fermionic models are
+intrinsically harder to simulate than spin models [207].
+Despite these undeniable advantages, analog platforms also
+have some drawbacks. Strongly correlated physics of interest
+may emerge only at very low temperatures that are hard to
+reach experimentally, and due to imperfect control the actual
+Hamiltonian in the lab may differ significantly from that of the
+target system. This issue might be partially mitigated by validating the Hamiltonian using Hamiltonian-learning algorithms
+[208, 209]. We also note that the accuracy of an analog simulator may be considerably better than worst-case error bounds
+would indicate, because errors are likely to partially cancel out
+[210–212]. The digital approach affords greater flexibility in
+the choice of initial state and Hamiltonian, and admits quantum error correction for more robust control. As happened in
+conventional computing, analog quantum simulators may eventually become obsolete. However, given the hefty overhead
+
+cost of quantum fault tolerance, analog platforms will maintain
+notable discovery potential well into the future, especially in
+studies of quantum dynamics far from equilibrium.
+Analog quantum simulators may be surpassed by digital
+quantum simulators eventually, but in the near term they
+are powerful tools for scientific exploration, well suited for
+studies of quantum dynamics.
+Not only do we want quantum simulators to solve classically
+hard problems, we also want them to provide useful knowledge beyond what would otherwise be accessible. According
+to a recent estimate from a High Performance Computing facility operated by the U.S. Department of Energy [213], over
+30% of compute cycles are spent on density functional theory computations for chemistry and materials science, over
+18% on lattice quantum chromodynamics, and about 2.6% on
+chemistry algorithms other than DFT. These numbers provide
+a rough indication of the level of activity relating to quantum
+problems in the computational physical sciences, and do not
+include additional topics like molecular dynamics and fusion
+energy which also account for a large fraction of the computational workload and where more precise treatment of quantum
+effects might yield improved results.
+Classical computing will continue to be widely and productively used in this problem space, but we are optimistic that
+quantum simulation will provide surprising insights beyond
+the scope of classical methods. We anticipate discovering
+new highly entangled phases of matter, both in equilibrium
+and far from equilibrium, and exploring properties of strongly
+coupled quantum systems that are beyond the reach of other
+computational methods. We expect substantial impact first in
+condensed matter physics, later in chemistry, and eventually
+in high energy physics and even quantum gravity. While we
+are confident about the potential of quantum simulators as
+tools for scientific discovery, it is more difficult to predict their
+usefulness for industrial applications.
+Quantum simulations on digital and analog quantum platforms will be scientifically informative, but their economic
+value is less clear.
+
+VI.
+
+OUTLOOK
+
+The rapid recent advance of quantum science and technology has drawn attention not just from scientists but also from
+commercial ventures and government policy makers. Quantum
+computers with broadly useful applications are eagerly anticipated but are challenging to realize. In this article we have
+emphasized that to navigate the road from today’s NISQ era
+to tomorrow’s FASQ machines the quantum community must
+“mind the gaps” that block the way. We have highlighted in particular the daunting quest for scalable fault-tolerant quantum
+computers and the crucial hunt for practical quantum advantages over conventional information processing. We stress,
+though, that the portolio of useful applications is likely to expand gradually as quantum technology advances through the
+
+11
+megaquop, gigaquop, and teraquop regimes.
+How will quantum technology advance science and benefit
+society? Efforts to envision the long-term impact of quantum
+technology on the world are hampered by our limited imaginations — the history of classical computing vividly illustrates
+that predicting the future course of information technology is
+beyond our grasp. In a letter to Lewis Strauss in 1945, John
+von Neumann reflected on the potential value of high-speed
+electronic computers. After delineating some prospective applications, he wisely opined [214]:
+[T]he projected device [. . . ] is so radically new
+that many of its uses will become clear only after
+it has been put into operation [. . . ]. [T]hese uses
+which are not, or not easily, predictable now, are
+likely to be the most important ones. Indeed they
+are by definition those which we do not recognize at present because they are farthest removed
+from what is now feasible, and they will therefore
+constitute the most surprising and farthest-going
+extension of our present sphere of action . . .
+Just as von Neumann could not envision the digital revolution that would eventually unfold, we cannot hope to foresee
+today the most impactful future applications of quantum computers. Arguably our task is all the more hopeless because
+quantum information processing entails an even larger step
+beyond past experience. Despite our best efforts to predict
+
+[1] R. P. Feynman, Simulating physics with computers, Int. J. Th.
+Phys. 21, 467 (1982).
+[2] R. P. Feynman, Quantum mechanical computers, Found. Phys.
+16, 507 (1986).
+[3] D. Deutsch, Quantum theory, the Church-Turing principle and
+the universal quantum computer, Proc. Roy. Soc. A 400, 97
+(1985).
+[4] P. W. Shor, Algorithms for quantum computation: discrete
+logarithms and factoring, Proc. 50th Ann. Symp. Found. Comp.
+Sc. , 124 (1994).
+[5] J. Preskill, Quantum computing in the NISQ era and beyond,
+Quantum 2, 79 (2018).
+[6] A. Morvan, B. Villalonga, X. Mi, S. Mandrà, A. Bengtsson,
+P. Klimov, Z. Chen, S. Hong, C. Erickson, I. Drozdov, et al.,
+Phase transitions in random circuit sampling, Nature 634, 328
+(2024).
+[7] P. W. Shor, Scheme for reducing decoherence in quantum computer memory, Phys. Rev. A 52, R2493 (1995).
+[8] P. W. Shor, Fault-tolerant quantum computation, in Proceedings
+of 37th conference on foundations of computer science (IEEE,
+1996) pp. 56–65.
+[9] J. Lee, D. W. Berry, C. Gidney, W. J. Huggins, J. R. McClean,
+N. Wiebe, and R. Babbush, Even more efficient quantum computations of chemistry through tensor hypercontraction, PRX
+Quantum 2, 030305 (2021).
+[10] C. Gidney, How to factor 2048 bit RSA integers with less than
+a million noisy qubits, (2025), arXiv:2505.15917.
+[11] D. Bacon, Software of QIP, by QIP, and for QIP (2022), keynote
+presentation at QIP 2022.
+
+the important applications, tomorrow’s quantum computers
+are sure to delight and benefit us in ways we cannot currently
+anticipate. Before that happens, we have a lot of work to do.
+
+ACKNOWLEDGMENTS
+
+We are grateful to Steve Flammia for helpful and insightful
+comments about this article, and to many other colleagues for
+years of stimulating discussions about the quest for quantum advantage. The work of J. E. has been supported by the BMFTR
+(DAQC, MUNIQC-Atoms, QuSol, PasQuops), the Munich
+Quantum Valley (K-4 and K-8), the QuantERA (HQCC),
+the Quantum Flagship (PasQuans2, Millenion), QuantERA
+(HQCC), the Clusters of Excellence MATH+ and ML4Q, the
+DFG (CRC183), the Einstein Foundation (Einstein Research
+Unit on Quantum Devices), Berlin Quantum, and the ERC
+(DebuQC). The work of J. P. has been supported in part by
+the U.S. Department of Energy, Office of Science, National
+Quantum Information Science Research Centers, Quantum
+Systems Accelerator, by the U.S. Department of Energy, Office of Science, Accelerated Research in Quantum Computing,
+Quantum Utility through Advanced Computational Quantum
+Algorithms (QUACQ) and Fundamental Algorithmic Research
+toward Quantum Utility (FAR-Qu), and by the National Science Foundation (PHY-2317110). The Institute for Quantum
+Information and Matter is an NSF Physics Frontiers Center.
+
+[12] J. Preskill, Beyond NISQ: The megaquop machine, ACM Trans.
+Quant. Comp. 6, 1 (2025).
+[13] Z. Zimborás, B. Koczor, Z. Holmes, E.-M. Borrelli, A. Gilyén,
+H.-Y. Huang, Z. Cai, A. Acín, L. Aolita, L. Banchi, et al.,
+Myths around quantum computation before full fault tolerance:
+What no-go theorems rule out and what they don’t, (2025),
+arXiv:2501.05694.
+[14] R. King, Quantum algorithms: A call to action (2025).
+[15] S. Aaronson, A. M. Childs, E. Farhi, A. W. Harrow, and
+B. C. Sanders, Future of quantum computing, (2025),
+arXiv:2506.19232.
+[16] O. Lanes, M. Beji, A. D. Corcoles, C. Dalyac, J. M. Gambetta, L. Henriet, A. Javadi-Abhari, A. Kandala, A. Mezzacapo,
+C. Porter, et al., A framework for quantum advantage, (2025),
+arXiv:2506.20658.
+[17] H.-Y. Huang, S. Choi, J. R. McClean, and J. Preskill, The vast
+world of quantum advantage, (2025), arXiv:2508.05720.
+[18] E. Kapit, P. Love, J. Larson, A. Sornborger, E. Crane,
+A. Schuckert, T. Tomesh, F. Chong, and S. Kais, Roadblocks
+and opportunities in quantum algorithms – insights from the
+National Quantum Initiative Joint Algorithms Workshop, May
+20-22, 2024, (2025), arXiv:2508.13973.
+[19] A. M. Dalzell, S. McArdle, M. Berta, P. Bienias, C.-F. Chen,
+A. Gilyén, C. T. Hann, M. J. Kastoryano, E. T. Khabiboulline,
+A. Kubica, et al., Quantum algorithms: A survey of applications
+and end-to-end complexities, (2023), arXiv:2310.03011.
+[20] H. Haeffner, C. F. Roos, and R. Blatt, Quantum computing with
+trapped ions, Phys. Rep. 469, 155 (2008).
+
+12
+[21] J.-S. Chen, E. Nielsen, M. Ebert, V. Inlek, K. Wright, V. Chaplin, A. Maksymov, E. Páez, A. Poudel, P. Maunz, and J. Gamble,
+Benchmarking a trapped-ion quantum computer with 30 qubits,
+Quantum 8, 1516 (2024).
+[22] M. DeCross et al., Computational power of random quantum circuits in arbitrary geometries, Phys. Rev. X 15, 021052
+(2025).
+[23] R. Acharya et al., Quantum error correction below the surface
+code threshold, (2024), arxiv:2408.13687.
+[24] D. Castelvecchi, IBM releases first-ever 1,000-qubit quantum
+chip, Nature 624, 238 (2023).
+[25] S. Bravyi, O. Dial, J. M. Gambetta, D. Gil, and Z. Nazario, The
+future of quantum computing with superconducting qubits, J.
+Applied Phys. 132, 160902 (2022).
+[26] H. Bernien, S. Schwartz, A. Keesling, H. Levine, A. Omran,
+H. Pichler, S. Choi, A. S. Zibrov, M. Endres, M. Greiner,
+V. Vuletic, and M. Lukin, Probing many-body dynamics on a
+51-atom quantum simulator, Nature 551, 579 (2017).
+[27] D. Bluvstein, S. J. Evered, A. A. Geim, S. H. Li, H. Zhou,
+T. Manovitz, S. Ebadi, M. Cain, M. Kalinowski, D. Hangleiter,
+J. P. Bonilla Ataides, N. Maskara, I. Cong, X. Gao, P. S.
+Rodriguez, T. Karolyshyn, G. Semeghini, M. J. Gullans,
+M. Greiner, V. Vuletic, and M. D. Lukin, Logical quantum
+processor based on reconfigurable atom arrays, Nature 626, 58
+(2024).
+[28] M. Saffman, T. G. Walker, and K. Mølmer, Quantum information with Rydberg atoms, Rev. Mod. Phys. 82, 2313 (2010).
+[29] S. J. Evered, D. Bluvstein, M. Kalinowski, S. Ebadi,
+T. Manovitz, H. Zhou, S. H. Li, A. A. Geim, T. T. Wang,
+N. Maskara, H. Levine, G. Semeghini, M. Greiner, V. Vuletić,
+and M. D. Lukin, High-fidelity parallel entangling gates on a
+neutral-atom quantum computer, Nature 622, 268 (2023).
+[30] P. Bojović, T. Hilker, S. Wang, J. Obermeyer, M. Barendregt,
+D. Tell, T. Chalopin, P. M. Preiss, I. Bloch, and T. Franz, Highfidelity collisional quantum gates with fermionic atoms, (2025),
+arXiv:2506.14711.
+[31] M. Liu, R. Shaydulin, P. Niroula, M. DeCross, S.-H. Hung,
+W. Y. Kon, E. Cervero-Martín, K. Chakraborty, O. Amer,
+S. Aaronson, et al., Certified randomness using a trapped-ion
+quantum processor, Nature 618, 500 (2025).
+[32] Y. Kim, A. Eddins, S. Anand, K. X. Wei, E. Van Den Berg,
+S. Rosenblatt, H. Nayfeh, Y. Wu, M. Zaletel, K. Temme, et al.,
+Evidence for the utility of quantum computing before fault
+tolerance, Nature 618, 500 (2023).
+[33] D. A. Abanin, R. Acharya, L. Aghababaie-Beni, G. Aigeldinger,
+A. Ajoy, R. Alcaraz, I. Aleiner, T. I. Andersen, M. Ansmann,
+F. Arute, et al., Constructive interference at the edge of quantum
+ergodic dynamics, (2025), arXiv:2506.10191.
+[34] E. Knill, Leibfried, R. Reichle, J. Britton, R. B. Blakestad,
+J., Jost, C. Langer, R. Ozeri, S. Seidelin, and J. Wineland,
+Randomized benchmarking of quantum gates, Phys. Rev. A 77,
+012307 (2008).
+[35] J. Eisert, D. Hangleiter, N. Walk, I. Roth, D. Markham,
+R. Parekh, U. Chabaud, and E. Kashefi, Quantum certification and benchmarking, Nature Rev. Phys. 2, 382 (2020).
+[36] A. Hashim, L. B. Nguyen, N. Goss, B. Marinelli, R. K. Naik,
+T. Chistolini, J. Hines, J. Marceaux, Y. Kim, P. Gokhale,
+T. Tomesh, S. Chen, L. Jiang, S. Ferracin, K. Rudinger, T. Proctor, K. C. Young, I. Siddiqi, and R. Blume-Kohout, Practical
+introduction to benchmarking and characterization of quantum
+computers, PRX Quantum 6, 030202 (2025).
+[37] IQM, IQM quantum computers achieves new technology milestones with 99.9% 2-qubit gate fidelity and 1 millisecond coherence time (2024).
+
+[38] Google Quantum AI, Willow spec sheet (2024).
+[39] T. M. Graham, Y. Song, J. Scott, C. Poole, L. Phuttitarn,
+K. Jooya, P. Eichler, X. Jiang, A. Marra, B. Grinkemeyer,
+M. Kwon, M. Ebert, J. Cherek, M. T. Lichtman, M. Gillette,
+J. Gilbert, D. Bowman, T. Ballance, C. Campbell, E. D. Dahl,
+O. Crawford, N. S. Blunt, B. Rogers, T. Noel, and M. Saffman,
+Multi-qubit entanglement and algorithms on a neutral-atom
+quantum computer, Nature 604, 457 (2022).
+[40] D. A. Rower, L. Ding, H. Zhang, M. Hays, J. An, P. M. Harrington, I. T. Rosen, J. M. Gertler, T. M. Hazard, B. M. Niedzielski,
+M. E. Schwartz, S. Gustavsson, K. Serniak, J. A. Grover, and
+W. D. Oliver, Suppressing counter-rotating errors for fast singlequbit gates with fluxonium, PRX Quantum 5, 040342 (2024).
+[41] Z. Li, P. Liu, P. Zhao, Z. Mi, H. Xu, X. Liang, T. Su, W. Sun,
+G. Xue, J.-N. Zhang, W. Liu, Y. Jin, and H. Yu, npj Quant. Inf.
+9, 111 (2023).
+[42] A. Bengtsson, A. Opremcak, M. Khezri, D. Sank, A. Bourassa,
+K. J. Satzinger, S. Hong, C. Erickson, B. J. Lester, K. C. Miao,
+A. N. Korotkov, J. Kelly, Z. Chen, and P. V. Klimov, Modelbased optimization of superconducting qubit readout, Phys.
+Rev. Lett. 132, 100603 (2024).
+[43] H. Neven, Meet willow, our state-of-the-art quantum chip
+(2024).
+[44] D. Gao, D. Fan, C. Zha, J. Bei, G. Cai, J. Cai, S. Cao, F. Chen,
+J. Chen, K. Chen, et al., Establishing a new benchmark in
+quantum computational advantage with 105-qubit Zuchongzhi
+3.0 processor, Phys. Rev. Lett. 134, 090601 (2025).
+[45] IBM Newsroom, IBM launches its most advanced quantum
+computers, fueling new scientific value and progress towards
+quantum advantage (2024).
+[46] Y. Quek, D. S. França, S. Khatri, J. J. Meyer, and J. Eisert,
+Exponentially tighter bounds on limitations of quantum error,
+mitigation, Nature Phys. 20, 1648 (2024).
+[47] T. Schuster, C. Yin, X. Gao, and N. Y. Yao, A polynomialtime classical algorithm for noisy quantum circuits, (2024),
+arXiv:2407.12768.
+[48] A. A. Mele, A. Angrisani, S. Ghosh, S. Khatri, J. Eisert, D. S.
+França, and Y. Quek, Noise-induced shallow circuits and absence of barren plateaus, (2024), arXiv:2403.13927.
+[49] A. Deshpande, P. Niroula, O. Shtanko, A. V. Gorshkov, B. Fefferman, and M. J. Gullans, Tight bounds on the convergence of
+noisy random circuits to the uniform distribution, PRX Quantum 3, 040329 (2022).
+[50] D. Stilck Franca and R. García-Patrón, Limitations of optimization algorithms on noisy quantum devices, Nature Phys. 17,
+1221 (2020).
+[51] M. Ben-Or, D. Gottesman, and A. Hassidim, Quantum refrigerator, (2013), arXiv:1301.1995.
+[52] A. Angrisani, A. A. Mele, M. S. Rudolph, M. Cerezo, and
+Z. Holmes, Simulating quantum circuits with arbitrary local
+noise using Pauli propagation, (2025), arxiv:2501.13101.
+[53] Z. Cai, R. Babbush, S. C. Benjamin, S. Endo, W. J. Huggins,
+Y. Li, J. R. McClean, and T. E. O’Brien, Quantum error mitigation, Rev. Mod. Phys. 95, 045005 (2023).
+[54] T. Giurgica-Tiron, Y. Hindy, R. LaRose, A. Mari, and W. J.
+Zeng, Digital zero noise extrapolation for quantum error mitigation, 2020 IEEE Int. Conf. Quant. Comp. Eng. (QCE) , 306
+(2020).
+[55] A. Mari, N. Shammah, and W. J. Zeng, Extending quantum
+probabilistic error cancellation by noise scaling, Phys. Rev. A
+104, 052607 (2021).
+[56] R. LaRose, A. Mari, S. Kaiser, P. J. Karalekas, A. A. Alves,
+P. Czarnik, M. E. Mandouh, M. H. Gordon, Y. Hindy, A. Robertson, P. Thakre, M. Wahl, D. Samuel, R. Mistri, M. Tremblay,
+
+13
+N. Gardner, N. T. Stemen, N. Shammah, and W. J. Zeng, Mitiq: A software package for error mitigation on noisy quantum
+computers, Quantum 6, 774 (2022).
+[57] J. R. McClean, Z. Jiang, N. C. Rubin, R. Babbush, and
+H. Neven, Decoding quantum errors with subspace expansions,
+Nature Comm. 11, 636 (2020).
+[58] F. B. Maciejewski, Z. Zimborás, and M. Oszmaniec, Mitigation
+of readout noise in near-term quantum devices by classical
+post-processing based on detector tomography, Quantum 4,
+257 (2020).
+[59] R. Takagi, H. Tajima, and M. Gu, Universal sampling lower
+bounds for quantum error mitigation, Phys. Rev. Lett. 131,
+210602 (2023).
+[60] R. Takagi, S. Endo, S. Minagawa, and M. Gu, Fundamental limits of quantum error mitigation, npj Quant. Inf. 8, 114 (2022),
+arXiv:2210.11505.
+[61] D. Aharonov, O. Alberton, I. Arad, Y. Atia, E. Bairey, Z. Brakerski, I. Cohen, O. Golan, I. Gurwich, O. Kenneth, et al., On
+the importance of error mitigation for quantum computation,
+(2025), arXiv:2503.17243.
+[62] D. Aharonov, O. Alberton, I. Arad, Y. Atia, E. Bairey, M. B.
+Dov, A. Berkovitch, Z. Brakerski, I. Cohen, E. Fuchs, et al., Reliable high-accuracy error mitigation for utility-scale quantum
+circuits, (2025), arXiv:2508.10997.
+[63] J. Cotler, S. Choi, A. Lukin, H. Gharibyan, T. Grover, M. E. Tai,
+M. Rispoli, R. Schittko, P. M. Preiss, A. M. Kaufman, et al.,
+Quantum virtual cooling, Phys. Rev. X 9, 031013 (2019).
+[64] A. Seif, Z.-P. Cian, S. Zhou, S. Chen, and L. Jiang, Shadow
+distillation: Quantum error mitigation with classical shadows
+for near-term quantum processors, PRX Quantum 4, 010303
+(2023).
+[65] W. J. Huggins, S. McArdle, T. E. O’Brien, J. Lee, N. C. Rubin,
+S. Boixo, K. B. Whaley, R. Babbush, and J. R. McClean, Virtual distillation for quantum error mitigation, Phys. Rev. X 11,
+041036 (2021).
+[66] B. Koczor, Exponential error suppression for near-term quantum devices, Phys. Rev. X 11, 031057 (2021).
+[67] E. Onorati, J. Kitzinger, J. Helsen, M. Ioannou, A. H. Werner,
+I. Roth, and J. Eisert, Noise-mitigated randomized measurements and self-calibrating shadow estimation, (2024),
+arXiv:2403.04751.
+[68] Z. Liu, X. Zhang, Y.-Y. Fei, and Z. Cai, Virtual channel purification, (2024), arXiv:2402.07866.
+[69] M. A. Wahl, A. Mari, N. Shammah, W. J. Zeng, and G. S. Ravi,
+Zero noise extrapolation on logical qubits by scaling the error
+correction code distance, 2023 IEEE Int. Conf. Quant. Comp.
+Eng. (QCE) 1, 888 (2023).
+[70] Y. Suzuki, S. Endo, K. Fujii, and Y. Tokunaga, Quantum error
+mitigation as a universal error reduction technique: Applications from the NISQ to the fault-tolerant quantum computing
+eras, PRX Quantum 3, 010345 (2022).
+[71] G. Camilo, T. O. Maciel, A. Tosta, A. Alhajri, T. de Lima Silva,
+D. S. França, and L. Aolita, Compilation-informed probabilistic
+quantum error cancellation, (2025), arXiv:2508.20174.
+[72] B. M. Terhal, Quantum error correction for quantum memories,
+Rev. Mod. Phys. 87, 307 (2015).
+[73] E. T. Campbell, B. M. Terhal, and C. Vuillot, Roads towards
+fault-tolerant universal quantum computation, Nature 549, 172
+(2017).
+[74] J. Roffe, Quantum error correction: An introductory guide,
+Contemp. Phys. 60, 226 (2019).
+[75] A. M. Steane, Error correcting codes in quantum theory, Phys.
+Rev. Lett. 77, 793 (1996).
+
+[76] D. Aharonov and M. Ben-Or, Fault-tolerant quantum computation with constant error, STOC ’97: Proc. 29th Ann. ACM
+Symp. Th. Comp. , 176.
+[77] E. Knill, R. Laflamme, and W. H. Zurek, Resilient quantum
+computation: error models and thresholds, Proc. Roy. Soc.
+Lond. A 454, 365 (1998).
+[78] J. Preskill, Reliable quantum computers, Proc. Roy. Soc. Lond.
+A 454, 385 (1998).
+[79] B. Eastin and E. Knill, Restrictions on transversal encoded
+quantum gate sets, Phys. Rev. Lett. 102, 110502 (2009).
+[80] A. Y. Kitaev, Anyons in an exactly solved model and beyond,
+Ann. Phys. 321, 2 (2006).
+[81] E. Dennis, A. Kitaev, A. Landahl, and J. Preskill, Topological
+quantum memory, J. Math. Phys. 43, 4452 (2002).
+[82] A. G. Fowler, S. J. Devitt, and C. Jones, Surface code implementation of block code state distillation, Sc. Rep. 3, 1939
+(2013).
+[83] D. Gottesman, Fault-tolerant quantum computation with constant overhead, Quant. Inf. Comp. 14, 1338 (2013).
+[84] J.-P. Tillich and G. Zemor, IEEE Trans. Inf. Th. 60, 1193
+(2014).
+[85] P. Panteleev and G. Kalachev, Degenerate quantum LDPC
+codes with good finite length, performance, Quantum 5, 585
+(2021).
+[86] N. P. Breuckmann and J. N. Eberhardt, Quantum LDPC codes,
+PRX Quantum 2, 040101 (2021).
+[87] A. Leverrier and G. Zémor, Quantum Tanner codes, in 2022
+IEEE 63rd Annual Symposium on Foundations of Computer
+Science (FOCS) (IEEE, 2022) pp. 872–883.
+[88] S. Bravyi, A. W. Cross, J. M. Gambetta, D. Maslov, P. Rall,
+and T. J. Yoder, High-threshold and low-overhead fault-tolerant
+quantum memory, Nature 627, 778 (2024).
+[89] A. Cross, Z. He, P. Rall, and T. Yoder, Improved QLDPC
+surgery: Logical measurements and bridging codes, (2024),
+arXiv:2407.18393.
+[90] Q. Xu, H. Zhou, G. Zheng, D. Bluvstein, J. P. B. Ataides, M. D.
+Lukin, and L. Jiang, Fast and parallelizable logical computation
+with homological product codes, (2024), arXiv:2407.18490.
+[91] E. Swaroop, T. Jochym-O’Connor, and T. J. Yoder, Universal adapters between quantum LDPC codes, (2025),
+arXiv:2410.03628.
+[92] B. W. Reichardt, D. Aasen, R. Chao, A. Chernoguzov, W. van
+Dam, J. P. Gaebler, D. Gresh, D. Lucchetti, M. Mills, S. A.
+Moses, et al., Demonstration of quantum computation and error
+correction with a tesseract code, (2024), arXiv:2409.04628.
+[93] N.-C. Chiu, E. C. Trapp, J. Guo, M. H. Abobeih, L. M. Stewart,
+S. Hollerith, P. L. Stroganov, M. Kalinowski, A. A. Geim, S. J.
+Evered, et al., Continuous operation of a coherent 3,000-qubit
+system, Nature , 1 (2025).
+[94] L. Caune, L. Skoric, N. S. Blunt, A. Ruban, J. McDaniel,
+J. A. Valery, A. D. Patterson, A. V. Gramolin, J. Majaniemi,
+K. M. Barnes, T. Bialas, O. Buğdaycı, O. Crawford, G. P.
+Gehér, H. Krovi, E. Matekole, C. Topal, S. Poletto, M. Bryant,
+K. Snyder, N. I. Gillespie, G. Jones, K. Johar, E. T. Campbell, and A. D. Hill, Demonstrating real-time and low-latency
+quantum error correction with superconducting qubits, (2024),
+arxiv:2410.05202.
+[95] T. Hillmann, L. Berent, A. O. Quintavalle, J. Eisert, R. Wille,
+and J. Roffe, Localized statistics decoding: A parallel decoding
+algorithm for quantum low-density parity-check codes, Nature
+Comm. 16, 8214 (2025).
+[96] J. Bausch, A. W. Senior, F. J. Heras, T. Edlich, A. Davies,
+M. Newman, C. Jones, K. Satzinger, M. Y. Niu, S. Blackwell,
+et al., Learning high-accuracy error decoding for quantum
+
+14
+processors, Nature 635, 834 (2024).
+[97] V. E. Manucharyan, J. Koch, L. Glazman, and M. Devoret,
+Fluxonium: single cooper pair circuit free of charge offsets,
+Science 326, 113 (2009).
+[98] H. Putterman, K. Noh, C. T. Hann, G. S. MacCabe,
+S. Aghaeimeibodi, R. N. Patel, M. Lee, W. M. Jones,
+H. Moradinejad, R. Rodriguez, et al., Hardware-efficient quantum error correction via concatenated bosonic qubits, Nature
+638, 927 (2025).
+[99] U. Réglade, A. Bocquet, R. Gautier, J. Cohen, A. Marquet,
+E. Albertinale, N. Pankratova, M. Hallén, F. Rautschke, L.-A.
+Sellem, et al., Quantum control of a cat qubit with bit-flip times
+exceeding ten seconds, Nature 629, 778 (2024).
+[100] K. S. Chou, T. Shemma, H. McCarrick, T.-C. Chien, J. D. Teoh,
+P. Winkel, A. Anderson, J. Chen, J. C. Curtis, S. J. de Graaf,
+et al., A superconducting dual-rail cavity qubit with erasuredetected logical measurements, Nature Phys. 20, 1454 (2024).
+[101] H. Levine, A. Haim, J. S. Hung, N. Alidoust, M. Kalaee, L. DeLorenzo, E. A. Wollack, P. Arrangoiz-Arriola, A. Khalajhedayati, R. Sanil, et al., Demonstrating a long-coherence dual-rail
+erasure qubit using tunable transmons, Phys. Rev. X 14, 011051
+(2024).
+[102] A. Y. Kitaev, Fault-tolerant quantum computation by anyons,
+Ann. Phys. 303, 2 (2003).
+[103] D. Aasen, M. Aghaee, Z. Alam, M. Andrzejczuk, A. Antipov,
+M. Astafev, L. Avilovas, A. Barzegar, B. Bauer, J. Becker,
+et al., Roadmap to fault tolerant quantum computation using
+topological qubit arrays, (2025), arXiv:2502.12252.
+[104] M. Aghaee, Z. Alam, R. Andersen, M. Andrzejczuk, A. Antipov, M. Astafev, L. Avilovas, A. Azizimanesh, B. Bauer,
+J. Becker, et al., Distinct lifetimes for X and Z loop measurements in a Majorana tetron device, (2025), arXiv:2507.08795.
+[105] A. Montanaro, Quantum algorithms: an overview, npj Quant.
+Inf. 2, 15023 (2016).
+[106] D. Hangleiter and J. Eisert, Computational advantage of quantum random sampling, Rev. Mod. Phys. 95, 035001 (2023).
+[107] F. Arute et al., Quantum supremacy using a programmable
+superconducting processor, Nature 574, 505 (2019).
+[108] S. Boixo, S. V. Isakov, V. N. Smelyanskiy, R. Babbush, N. Ding,
+Z. Jiang, M. J. Bremner, J. M. Martinis, and H. Neven, Characterizing quantum supremacy in near-term devices, Nature Phys.
+14, 595 (2018).
+[109] Q. Zhu et al., Quantum computational advantage via 60-qubit
+24-cycle random circuit sampling, (2021), arXiv:2109.03494.
+[110] R. LaRose, A brief history of quantum vs classical computational advantage, (2024), arXiv:2412.14703.
+[111] F. Pan, K. Chen, and P. Zhang, Solving the sampling problem
+of the Sycamore quantum circuits, Phys. Rev. Lett. 129, 090502
+(2022).
+[112] M. Cerezo, A. Arrasmith, R. Babbush, S. C. Benjamin, S. Endo,
+K. Fujii, J. R. McClean, K. Mitarai, X. Yuan, L. Cincio, and
+P. J. Coles, Variational quantum algorithms, Nature Rev. Phys.
+3, 625 (2021).
+[113] K. Bharti, A. Cervera-Lierta, T. H. Kyaw, A.-L. S. Haug,
+T. and, A. Anand, M. Degroote, H. Heimonen, J. S. Kottmann,
+T. Menke, et al., Noisy intermediate-scale quantum (NISQ)
+algorithms, Rev. Mod. Phys. 94, 015004 (2022).
+[114] E. Farhi, J. Goldstone, and S. Gutmann, A quantum approximate optimization algorithm, (2014), arxiv:1411.4028.
+[115] J. Biamonte, P. Wittek, N. Pancotti, P. Rebentrost, N. Wiebe,
+and S. Lloyd, Quantum machine learning, Nature 549, 195
+(2017).
+[116] R. Sweke, F. Wilde, J. Meyer, M. Schuld, P. K. Fährmann,
+B. Meynard-Piganeau, and J. Eisert, Stochastic gradient descent
+
+for hybrid quantum-classical optimization, Quantum 4, 314
+(2020).
+[117] J. R. McClean, S. Boixo, V. N. Smelyanskiy, R. Babbush, and
+H. Neven, Barren plateaus in quantum neural network training
+landscapes, Nature Comm. 9, 4812 (2018).
+[118] M. Larocca, S. Thanasilp, S. Wang, K. Sharma, J. Biamonte, P. J. Coles, L. Cincio, J. R. McClean, Z. Holmes, and
+M. Cerezo, A review of barren plateaus in variational quantum
+computing, (2024), arXiv:2405.00781.
+[119] A. Angrisani, A. Schmidhuber, M. S. Rudolph, M. Cerezo,
+Z. Holmes, and H.-Y. Huang, Classically estimating observables of noiseless quantum circuits, (2024), arXiv:2409.01706.
+[120] R. Sweke, E. Recio-Armengol, S. Jerbi, E. Gil-Fuster, B. Fuller,
+J. Eisert, and J. J. Meyer, Potential and limitations of random
+Fourier features for dequantizing quantum machine learning,
+Quantum 9, 1640 (2025).
+[121] F. J. Schreiber, J. Eisert, and J. J. Meyer, Classical surrogates
+for quantum learning models, Phys. Rev. Lett. 131, 100803
+(2023).
+[122] M. S. Rudolph, E. Fontana, Z. Holmes, and L. Cincio, Classical surrogate simulation of quantum systems with LOWESA,
+(2023), arxiv:2308.09109.
+[123] E. Gil-Fuster, C. Gyurik, A. Pérez-Salinas, and V. Dunjko, On
+the relation between trainability and dequantization of variational quantum learning models, (2024), arXiv:2406.07072.
+[124] M. Cerezo, M. Larocca, D. García-Martín, N. L. Diaz,
+P. Braccia, E. Fontana, M. S. Rudolph, P. Bermejo, A. Ijaz,
+S. Thanasilp, E. R. Anschuetz, and Z. Holmes, Does provable
+absence of barren plateaus imply classical simulability?, Nature
+Comm. 16, 7907 (2025).
+[125] E. R. Anschuetz and B. T. Kiani, Beyond barren plateaus: Quantum variational algorithms are swamped with traps, Nature
+Comm. 13, 7760 (2022).
+[126] D. J. Egger, J. Marecek, and S. Woerner, Warm-starting quantum optimization, Quantum 5, 479 (2021).
+[127] R. Tate, J. Moondra, B. Gard, G. Mohler, and S. Gupta, Warmstarted QAOA with custom mixers provably converges and
+computationally beats Goemans-Williamson’s MAX-CUT at
+low, circuit depths, Quantum 7, 1121 (2023).
+[128] H. Mhiri, R. Puig, S. Lerch, M. S. Rudolph, T. Chotibut,
+S. Thanasilp, and Z. Holmes, A unifying account of warm
+start guarantees for patches of quantum landscapes, (2025),
+arXiv:2502.07889.
+[129] I. Čepaitė, N. Vaishnav, L. Zhou, and A. Montanaro,
+Quantum-enhanced optimization by warm starts, (2025),
+arXiv:2508.16309.
+[130] F. G. S. L. Brandao, M. Broughton, E. Farhi, S. Gutmann,
+and H. Neven, For fixed control parameters the quantum approximate optimization, algorithm’s objective function value
+concentrates for typical instances, (2018), arXiv:1812.04170.
+[131] V. Akshay, D. Rabinovich, E. Campos, and J. Biamonte, Parameter concentrations in quantum approximate optimization,
+Phys. Rev. A 104, L010401 (2021).
+[132] A. Montanaro and L. Zhou, Quantum speedups in solving
+near-symmetric optimization problems by low-depth QAOA,
+(2024), arXiv:2411.04979.
+[133] A. B. Catli, S. Simon, and N. Wiebe, Exponentially better
+bounds for quantum optimization via dynamical simulation,
+(2025), arXiv:2502.04285.
+[134] M. Gluza, J. Son, B. H. Tiang, Y. Suzuki, Z. Holmes, and
+N. H. Y. Ng, Double-bracket quantum algorithms for quantum
+imaginary-time evolution, (2024), arXiv:2412.04554.
+[135] A. Abbas, A. Ambainis, B. Augustino, A. Bärtschi,
+H. Buhrman, C. Coffrin, G. Cortiana, V. Dunjko, D. J. Eg-
+
+15
+ger, B. G. Elmegreen, N. Franco, F. Fratini, B. Fuller, J. Gacon,
+C. Gonciulea, S. Gribling, S. Gupta, S. Hadfield, R. Heese,
+G. Kircher, T. Kleinert, T. Koch, G. Korpas, S. Lenk, J. Marecek, V. Markov, G. Mazzola, S. Mensa, N. Mohseni, G. Nannicini, C. O’Meara, E. P. Tapia, S. Pokutta, M. Proissl, P. Rebentrost, E. Sahin, B. C. B. Symons, S. Tornow, V. Valls, S. Woerner, M. L. Wolf-Bauwens, J. Yard, S. Yarkoni, D. Zechiel,
+S. Zhuk, and C. Zoufal, Challenges and opportunities in quantum optimization, Nature Rev. Phys. 6, 718 (2024).
+[136] R. Babbush, J. R. McClean, M. Newman, C. Gidney, S. Boixo,
+and H. Neven, Focus beyond quadratic speedups for errorcorrected quantum advantage, PRX Quantum 2, 010103 (2021).
+[137] E. Farhi and A. W. Harrow, Quantum supremacy through
+the quantum approximate optimization algorithm, (2016),
+arXiv:1602.07674.
+[138] E. Farhi, D. Gamarnik, and S. Gutmann, The quantum approximate optimization algorithm needs to see the whole graph: A
+typical case, (2020), arXiv:2004.09002.
+[139] N. Pirnay, V. Ulitzsch, F. Wilde, J. Eisert, and J.-P. Seifert, An
+in-principle super-polynomial quantum advantage for approximating combinatorial optimization problems via computational
+learning theory, Science Adv. 10, eadj5170 (2024).
+[140] M. Szegedy, Quantum advantage for combinatorial optimization problems, simplified, (2022), arXiv:2212.12572.
+[141] H. Buhrman, N. Galke, and K. Meichanetzidis, Formal framework for quantum advantage, (2025), arXiv:2510.01953.
+[142] A. Gilyén, M. B. Hastings, and U. Vazirani, (Sub)exponential
+advantage of adiabatic quantum computation with no sign problem, in Proceedings of the 53rd Annual ACM SIGACT Symposium on Theory of Computing (2021) pp. 1357–1369.
+[143] J. Leng, K. Wu, X. Wu, and Y. Zheng, (sub)exponential quantum speedup for optimization, (2025), arxiv:2504.14841.
+[144] T. Yamakawa and M. Zhandry, Verifiable quantum advantage
+without structure, J. ACM 71, 1 (2024).
+[145] S. P. Jordan, N. Shutty, M. Wootters, A. Zalcman, A. Schmidhuber, R. King, S. V. Isakov, and R. Babbush, Optimization by
+decoded quantum interferometry, (2024), arxiv:2408.08292.
+[146] A. Gu and S. P. Jordan, Algebraic geometry codes and decoded
+quantum interferometry, (2025), arXiv:2510.06603.
+[147] K. Marwaha, B. Fefferman, A. Gheorghiu, and V. Havlicek,
+On the complexity of decoded quantum interferometry, (2025),
+arXiv:2509.14443.
+[148] E. R. Anschuetz, D. Gamarnik, and J. Z. Lu, Decoded quantum
+interferometry requires structure, (2025), arXiv:2509.14509.
+[149] G. Carleo, I. Cirac, K. Cranmer, L. Daudet, M. Schuld,
+N. Tishby, L. Vogt-Maranto, and L. Zdeborová, Machine learning and the physical sciences, Rev. Mod. Phys. 91, 045002
+(2019).
+[150] Y. Liu, S. Arunachalam, and K. Temme, A rigorous and robust
+quantum speed-up in supervised machine learning, Nature Phys.
+17, 1013 (2021).
+[151] S. Aaronson, Read the fine print, Nature Phys. 11, 291 (2015).
+[152] I. Kerenidis and A. Prakash, Quantum recommendation systems, (2016), arXiv:1603.08675.
+[153] E. Tang, A quantum-inspired classical algorithm for recommendation systems, in Proceedings of the 51st annual ACM
+SIGACT symposium on theory of computing (2019) pp. 217–
+228.
+[154] M. Schuld and N. Killoran, Is quantum advantage the right
+goal for quantum machine learning?, PRX Quantum 3, 030101
+(2022).
+[155] R. Sweke, J.-P. Seifert, D. Hangleiter, and J. Eisert, On the
+quantum versus classical learnability of discrete distributions,
+Quantum 5, 417 (2021).
+
+[156] N. Pirnay, R. Sweke, J. Eisert, and J.-P. Seifert, A superpolynomial quantum-classical separation for density modelling,
+Phys. Rev. A 107, 042416 (2023).
+[157] R. Molteni, S. C. Marshall, and V. Dunjko, Quantum machine
+learning advantages beyond hardness of evaluation, (2025),
+arXiv:2504.15964.
+[158] J. Liu, M. Liu, J.-P. Liu, Z. Ye, Y. Wang, Y. Alexeev, J. Eisert,
+and L. Jiang, Towards provably efficient quantum algorithms
+for large-scale machine-learning models, Nature Comm. 15,
+434 (2024).
+[159] Y. Wang, R. Jiang, Y. Fan, X. Jia, J. Eisert, J. Liu, and J.-P. Liu,
+Towards efficient quantum algorithms for diffusion probability
+models, (2025), arxiv:2502.14252.
+[160] A. W. Harrow, A. Hassidim, and S. Lloyd, Quantum algorithm
+for linear systems of equations, Phys. Rev. Lett. 103, 150502
+(2009).
+[161] A. M. Childs, R. Kothari, and R. D. Somma, Quantum algorithm for systems of linear equations with exponentially
+improved dependence on precision, SIAM J. Comp. 46, 1920
+(2017).
+[162] A. M. Childs, J.-P. Liu, and A. Ostrander, High-precision quantum algorithms for partial differential equations, Quantum 5,
+574 (2021).
+[163] J.-P. Liu, H. Ø. Kolden, H. K. Krovi, N. F. Loureiro, K. Trivisa,
+and A. M. Childs, Efficient quantum algorithm for dissipative nonlinear differential equations, PNAS 118, e2026805118
+(2021).
+[164] S. Bravyi, R. Manson-Sawko, M. Zayats, and S. Zhuk, Quantum simulation of a noisy classical nonlinear dynamics, (2025),
+arXiv:2507.06198.
+[165] P. A. M. Dirac, Quantum mechanics of many-electron systems,
+Proc. Roy. Soc. Lond. A 123, 714 (1929).
+[166] D. S. Sholl and J. A. Steckel, Density functional theory: A
+practical introduction (John Wiley and Sons, Inc., Hoboken,
+2009).
+[167] H.-Y. Huang, M. Broughton, M. Mohseni, R. Babbush,
+S. Boixo, H. Neven, and J. R. McClean, Power of data in
+quantum machine learning, Nature Comm. 12, 2631 (2021).
+[168] H.-Y. Huang, R. Kueng, G. Torlai, V. V. Albert, and J. Preskill,
+Provably efficient machine learning for quantum many-body
+problems, Science 377, eabk3333 (2022).
+[169] I. M. Georgescu, S. Ashhab, and F. Nori, Quantum simulation,
+Rev. Mod. Phys. 86, 153 (2014).
+[170] J. I. Cirac and P. Zoller, Goals and opportunities in quantum
+simulation, Nature Phys. 8, 264 (2012).
+[171] I. Bloch, J. Dalibard, and S. Nascimbene, Quantum simulations
+with ultracold quantum gases, Nature Phys. 8, 267 (2012).
+[172] R. Blatt and C. F. Roos, Quantum simulations with trapped
+ions, Nature Phys. 8, 277 (2012).
+[173] C. Monroe, W. C. Campbell, L.-M. Duan, Z.-X. Gong, A. V.
+Gorshkov, P. Hess, R. Islam, K. Kim, N. Linke, G. Pagano,
+P. Richerme, C. Senko, and N. Y. Yao, Programmable quantum
+simulations of spin systems with trapped ions, Rev. Mod. Phys.
+93, 25001 (2021).
+[174] J. I. Cirac, D. Pérez-García, N. Schuch, and F. Verstraete, Matrix product states and projected entangled pair states: Concepts, symmetries, theorems, Rev. Mod. Phys. 93, 045003
+(2021).
+[175] G. Carleo and M. Troyer, Solving the quantum many-body problem with artificial neural networks, Science 355, 602 (2017).
+[176] K. Gratsea, C. Sun, and P. D. Johnson, Evaluating the efficiency of ground-state-preparation algorithms, Phys. Rev. A
+109, 042425 (2024).
+
+16
+[177] Z. Ding, Y. Zhan, J. Preskill, and L. Lin, End-to-end efficient
+quantum thermal and ground state preparation made simple,
+(2025), arxiv:2508.05703.
+[178] T. S. Cubitt, Dissipative ground state preparation and the dissipative quantum eigensolver, (2023), arXiv:2303.11962.
+[179] Y. Zhan, Z. Ding, J. Huhn, J. Gray, J. Preskill, G. K.-L. Chan,
+and L. Lin, Rapid quantum ground state preparation via dissipative dynamics, (2025), arXiv:2503.15827.
+[180] S. Lee, J. Lee, H. Zhai, Y. Tong, A. M. Dalzell, A. Kumar,
+P. Helms, J. Gray, Z.-H. Cui, W. Liu, et al., Evaluating the
+evidence for exponential quantum advantage in ground-state
+quantum chemistry, Nature Comm. 14, 1952 (2023).
+[181] S. Trotzky, Y.-A. Chen, A. Flesch, I. P. McCulloch, U. Schollwöck, J. Eisert, and I. Bloch, Probing the relaxation towards
+equilibrium in an isolated strongly correlated one-dimensional
+Bose gas, Nature Phys. 8, 325 (2012), arXiv:1101.2659.
+[182] T. Kinoshita, T. Wenger, and S. Weiss, A quantum Newton’s
+cradle, Nature 440, 900 (2006).
+[183] X. Mi et al., Stable quantum-correlated many body states
+through engineered dissipation, Science 383, 1332 (2024).
+[184] A. Angrisani, A. Schmidhuber, M. S. Rudolph, M. Cerezo,
+Z. Holmes, and H.-Y. Huang, Classically estimating observables of noiseless quantum circuits, (2025), arXiv:2409.01706.
+[185] T. Begušić and G. K.-L. Chan, Real-time operator evolution
+in two and three dimensions via sparse Pauli dynamics, PRX
+Quantum 6, 020302 (2025).
+[186] G. Park, J. Gray, and G. K. Chan, Simulating quantum dynamics in two-dimensional lattices with tensor network influence
+functional belief propagation, (2025), arXiv:2504.07344.
+[187] J. Gray, G. Park, G. Evenbly, N. Pancotti, and G. K. Chan,
+Tensor network loop cluster expansions for quantum manybody problems, (2025), arXiv:2510.05647.
+[188] A. M. Childs, Y. Su, M. C. Tran, N. Wiebe, and S. Zhu, Theory
+of Trotter error with commutator scaling, Phys. Rev. X 11,
+011020 (2021).
+[189] M. Reiher, N. Wiebe, K. M. Svore, D. Wecker, and M. Troyer,
+Elucidating reaction mechanisms on quantum computers,
+PNAS 114, 7555 (2017).
+[190] G. H. Low and I. L. Chuang, Optimal Hamiltonian simulation
+by quantum signal processing, Phys. Rev. Lett. 118, 010501
+(2017).
+[191] G. H. Low and I. L. Chuang, Hamiltonian simulation by qubitization, Quantum 3, 163 (2019).
+[192] J. Haah, M. B. Hastings, R. Kothari, and G. H. Low, Quantum
+algorithm for simulating real time evolution of lattice Hamiltonians, SIAM J. Comp. 52, FOCS18 (2021).
+[193] K. G. H. Vollbrecht and J. I. Cirac, Quantum simulators,
+continuous-time automata, and translationally invariant systems, Phys. Rev. Lett. 100, 010501 (2008).
+[194] Y. Kim, A. Eddins, S. Anand, K. X. Wei, E. van den Berg,
+S. Rosenblatt, H. Nayfeh, Y. Wu, M. Zaletel, K. Temme, and
+A. Kandala, Evidence for the utility of quantum computing
+before fault tolerance, Nature 618, 500 (2023).
+[195] J. Tindall, M. Fishman, E. M. Stoudenmire, and D. Sels, Efficient tensor network simulation of IBM’s Eagle kicked Ising
+experiment, PRX Quantum 5, 010308 (2024).
+[196] T. Begušić and G. K. Chan, Fast classical simulation of evidence for the utility of quantum computing before fault tolerance, (2023), arXiv:2306.16372.
+[197] A. D. King et al., Beyond-classical computation in quantum
+simulation, Science 388, 199 (2025).
+
+[198] J. Tindall, A. Mello, M. Fishman, M. Stoudenmire, and D. Sels,
+Dynamics of disordered quantum systems with two- and threedimensional tensor networks, (2025), arXiv:2503.05693.
+[199] Many-body physics with individually controlled Rydberg
+atoms, Nature Phys. 16, 132 (2020).
+[200] G. Semeghini, H. Levine, A. Keesling, S. Ebadi, T. T. Wang,
+D. Bluvstein, R. Verresen, H. Pichler, M. Kalinowski, R. Samajdar, A. Omran, S. Sachdev, A. Vishwanath, M. Greiner,
+V. Vuletic, and M. D. Lukin, Probing topological spin liquids on
+a programmable quantum simulator, Science 374, 1242 (2021).
+[201] P. Roushan, C. Neill, J. Tangpanitanon, V. Bastidas, A. Megrant,
+R. Barends, Y. Chen, Z. Chen, B. Chiaro, A. Dunsworth,
+A. Fowler, B. Foxen, M. Giustina, E. Jeffrey, J. Kelly, E. Lucero,
+J. Mutus, M. Neeley, C. Quintana, Sank, A. Vainsencher,
+J. Wenner, T. White, H. Neven, G. Angelakis, and J. Martinis,
+Spectral signatures of many-body localization with interacting
+photons, Science 358, 1175 (2017).
+[202] W. S. Bakr, Z. Ba, and M. L. Prichard, Microscopy of ultracold
+fermions in optical lattices, (2025), arXiv:2507.04042.
+[203] R. Jördens, N. Strohmaier, K. Günter, H. Moritz, and
+T. Esslinger, A Mott insulator of fermionic atoms in an optical lattice, Nature 455, 204 (2008).
+[204] M. Xu, L. H. Kendrick, A. Kale, Y. Gang, C. Feng, S. Zhang,
+A. W. Young, and M. G. Martin Lebrat and, A neutral-atom
+Hubbard quantum simulator in the cryogenic regime, Nature
+642, 909 (2025).
+[205] J. Koepsell, J. Vijayan, P. Sompet, F. Grusdt, T. A. Hilker,
+E. Demler, G. Salomon, I. Bloch, and C. Gross, Imaging magnetic polarons in the doped Fermi-Hubbard model, Nature 572,
+358 (2019).
+[206] U. Schneider, L. Hackermueller, J. P. Ronzheimer, S. Will,
+S. Braun, T. Best, I. Bloch, E. Demler, S. Mandt, Rasch, and
+A. Rosch, Fermionic transport and out-of-equilibrium dynamics in a homogeneous Hubbard model with ultracold atoms,
+Nature Phys. 8, 213 (2012).
+[207] E. R. Anschuetz, C.-F. Chen, B. T. Kiani, and R. King, Strongly
+interacting fermions are nontrivial yet nonglassy, Phys. Rev.
+Lett. 135, 030602 (2025).
+[208] N. Wiebe, C. Granade, C. Ferrie, and D. G. Cory, Hamiltonian
+learning and certification using quantum resources, Phys. Rev.
+Lett. 112, 190501 (2014).
+[209] D. Hangleiter, I. Roth, J. Fuksa, J. Eisert, and P. Roushan, Precise Hamiltonian identification of a superconducting quantum
+processor, Nature Comm. 15, 9595 (2024).
+[210] R. Trivedi, A. Franco Rubio, and J. I. Cirac, Quantum advantage and stability to errors in analogue quantum simulators,
+Nature Comm. 15, 6507 (2024).
+[211] Y. Cai, Y. Tong, and J. Preskill, Stochastic error cancellation in
+analog quantum simulation, (2023), arXiv:2311.14818.
+[212] J. Rao, J. Eisert, and T. Guaita, Stability of digital and analog
+quantum simulations under noise, (2025), arXiv:2510.08467.
+[213] D. Camps, E. Rrapaj, K. Klymko, H. Kim, K. Gott, S. Darbha,
+J. Balewski, B. Austin, and N. J. Wright, Quantum computing
+technology roadmaps and capability assessment for scientific
+computing-an analysis of use cases from the nersc workload,
+(2025), arXiv:2509.09882.
+[214] J. von Neumann, Letter to Lewis L. Strauss (24 October 1945),
+in John von Neumann: Selected Letters, Hist. Math., Vol. 27,
+edited by M. Rédei (American Mathematical Society, Providence, RI, 2005) pp. 236–239.
+
+
